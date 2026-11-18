@@ -1,53 +1,52 @@
+<main>
 		<section>
-			<div>
+			<form>
 				<h4>Facturación y envío</h4>
 				<hr>
-				<form>
-					<label>
-						<p><em class="em1">Nombre </em><em class="em2">*</em></p>
-						<input type="text">
-					</label>
-					<label>
-						<p><em class="em1">Apellidos </em><em class="em2">*</em></p>
-						<input type="text">
-					</label>
-					<label>
-						<p><em class="em1">País / Región </em><em class="em2">*</em></p>
-						<input type="text">
-					</label>
-					<label>
-						<p><em class="em1">Dirección </em><em class="em2">*</em></p>
-						<input type="text">
-						<input type="text" placeholder="Apartamento, habitación, etc. (opcional)">
-					</label>
-					<label>
-						<p><em class="em1">Código postal / ZIP </em><em class="em2">*</em></p>
-						<input type="text">
-					</label>
-					<label>
-						<p><em class="em1">Población </em><em class="em2">*</em></p>
-						<input type="text">
-					</label>
-					<label>
-						<p><em class="em1">Provincia</em><em class="em2">*</em></p>
-						<input type="text">
-					</label>
-					<label>
-						<p><em class="em1">Teléfono </em><em class="em2">*</em></p>
-						<input type="text">
-					</label>
-					<label>
-						<p><em class="em1">Dirección de correo electrónico</em><em class="em2">*</em></p>
-						<input type="text">
-					</label>
-					<h4>Información adicional</h4>
-					<hr>
-					<label>
-						<p><em class="em1">Notas del pedido (opcional)</em></p>
-						<textarea rows="2" cols="5">
-					</label>
-				</form>
-			</div>
+				<label>
+					<p><em class="em1">Nombre </em><em class="em2">*</em></p>
+					<input type="text" name="nombre">
+				</label>
+				<label>
+					<p><em class="em1">Apellidos </em><em class="em2">*</em></p>
+					<input type="text" name="apellidos">
+				</label>
+				<label>
+					<p><em class="em1">País / Región </em><em class="em2">*</em></p>
+					<input type="text" name="region">
+				</label>
+				<label>
+					<p><em class="em1">Dirección </em><em class="em2">*</em></p>
+					<input type="text" name="direccion1">
+					<input type="text" placeholder="Apartamento, habitación, etc. (opcional)" name="direccion2">
+				</label>
+				<label>
+					<p><em class="em1">Código postal / ZIP </em><em class="em2">*</em></p>
+					<input type="text" name="postal">
+				</label>
+				<label>
+					<p><em class="em1">Población </em><em class="em2">*</em></p>
+					<input type="text" name="poblacion">
+				</label>
+				<label>
+					<p><em class="em1">Provincia</em><em class="em2">*</em></p>
+					<input type="text" name="provincia">
+				</label>
+				<label>
+					<p><em class="em1">Teléfono </em><em class="em2">*</em></p>
+					<input type="text" name="telefono">
+				</label>
+				<label>
+					<p><em class="em1">Dirección de correo electrónico</em><em class="em2">*</em></p>
+					<input type="text" name="correo">
+				</label>
+				<h4>Información adicional</h4>
+				<hr>
+				<label>
+					<p><em class="em1">Notas del pedido (opcional)</em></p>
+					<textarea rows="2" cols="5" name="notas">
+				</label>
+			</form>
 			<div>
 				<h4>Tu pedido</h4>
 				<table>
@@ -93,11 +92,13 @@
 							€
 						</td>
 					</tr>
+					<p>Tus datos personales se utilizarán para procesar tu pedido: <a href="https://nscristiandad.es/politica-de-privacidad">Política de privacidad.</a></p>
 					<label>
-						<input type="checkbox">
+						<input type="checkbox" name="terminos">
 						<p><em class="em1">He leído y estoy de acuerdo con los términos y condiciones de la web </em><em class="em2">*</em></p>
 					</label>
 					<input type="submit" form="">
 				</table>
 			</div>
 		</section>
+</main>
