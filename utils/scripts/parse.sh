@@ -25,11 +25,15 @@ https://tienda.nscristiandad.es/producto/taza-metalica/
 https://tienda.nscristiandad.es/terminos/
 '
 
+urls='
+https://tienda.nscristiandad.es/terminos/
+'
+
 shopt -s extglob
 
 for url in $urls; do
 	page=$(sed -E 's/https:\/\/tienda.nscristiandad.es(.*)\//pages\1\.html/' <<< $url)
-	config=$(sed -E 's/https:\/\/tienda.nscristiandad.es(.*)\//pages\1\.cfg/' <<< $url)
+	# config=$(sed -E 's/https:\/\/tienda.nscristiandad.es(.*)\//pages\1\.cfg/' <<< $url)
 	# page=$(sed -E 's/https:\/\/nscristiandad.es(.*)\//chuletas\1\.html/' <<< $url)
 
 	# curl $url > $page

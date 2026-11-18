@@ -64,20 +64,23 @@ body {
 	overflow-x: 				hidden; 
 }
 
+em {
+	font-style:	normal;
+}
+
 h1 {
-	color:			var(--azul);
+	color:			var(--rojo);
 	font-family: 	'Cinzel', serif;
-	font-size: 		2.5rem;
-	font-weight: 	200;
-	line-height: 	3rem; 
+	font-size: 		2.625rem;
+	font-weight: 	400;
+	line-height: 	3.4125rem; 
 	margin: 		0;
 	padding: 		0;
 	text-align:		center;
-	transition:		var(--animacion);
-	@media (max-width:	921px) {
-		font-size: 		1.875rem;
-		line-height:	2.25rem;
-	}
+}
+
+h2 {
+
 }
 
 h3 {
@@ -128,7 +131,11 @@ select {
 #CLASES
 \*------------------------------------*/
 
+.em1 {
+	color:		var(--azul);
+	font-style:	normal;
+}
+
 /*------------------------------------*\
 #IDS
 \*------------------------------------*/
-
