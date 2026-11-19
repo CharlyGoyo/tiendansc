@@ -1,44 +1,49 @@
-<main>
-		<table>
-			<thead>
+		<main class="main1">
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th><p>Producto</p></th>
+						<th><p>Precio</p></th>
+						<th><p>Cantidad</p></th>
+						<th><p>Subtotal</p></th>
+					</tr>
+				</thead>
 				<tr>
-					<th>Producto</th>
-					<th>Precio</th>
-					<th>Cantidad</th>
-					<th>Subtotal</th>
+					<td>
+						<button class="button1">
+							<!--circle-xmark-regular.svg-->
+							<svg class="svg1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+								<path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
+							</svg>
+						</button>
+					</td>
+					<td>
+						<p><a></a></p>
+					</td>
+					<td>
+						<p></p>
+					</td>
+					<td>
+						<input class="input1" type="number" max="30" min="0">
+					</td>
+					<td>
+						<p></p>
+					</td>
 				</tr>
-			</thead>
-			<tr>
-				<td>
-					<button>
-						<!--circle-xmark-regular.svg-->
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-							<path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
-						</svg>
-					</button>
-				</td>
-				<td>
-					<p><a></a></p>
-				</td>
-				<td>
-					<p></p>
-				</td>
-				<td>
-					<input type="number" max="30" min="0">
-				</td>
-				<td>
-					<p></p>
-				</td>
-			</tr>
-			<tfoot>
-				<a href="/">Volver a la tienda</a>
-				<button>Deshacer cambio</button>
-				<button>Rehacer cambio</button>
-			</tfoot>
-			<section>
+				<tfoot>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><p><a class="a2" href="/">Volver a la tienda</a></p></td>
+					<td><button disabled="true" class="button2">Deshacer cambio</button></td>
+					<td><button disabled="true" class="button2">Rehacer cambio</button></td>
+				</tfoot>
+			</table>
+			<section id="section3">
 				<h4>Total:</h4>
-				<p>(envío 5€)</p>
-				<button>Finalizar pedido</button>
+				<p class="p1">(envío 5€)</p>
+				<a class="a1" href="/finalizar-compra">Finalizar pedido</a>
 			</section>
-		</table>
-</main>
+		</main>
