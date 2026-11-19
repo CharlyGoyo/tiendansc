@@ -67,19 +67,21 @@
 			</a>
 		</nav>
 <main class="main1">
-	<section class="section2">
+	<!-- Grid principal de producto: 2 columnas en escritorio y 1 en móvil -->
+	<section id="section4" class="section2">
+		<!-- Galería y miniaturas con carrusel CSS puro + trigger de lightbox -->
 		<section class="section1">
-			<button class="button3" data-galeria="1">🔍</button>
+			<button class="button3" type="button" data-galeria="1" aria-label="Ver galería a pantalla completa">🔍</button>
 			<div data-carrusel="1">
-				<img src="/pages-content/uploads/2025/06/CAMISETAS-6-600x750.jpg" data-galeria-img="/pages-content/uploads/2025/06/CAMISETAS-6-scaled.jpg" alt="Camiseta Ave Crux Spes Unica">
-				<img src="/pages-content/uploads/2025/06/CAMISETAS-9-600x400.jpg" data-galeria-img="/pages-content/uploads/2025/06/CAMISETAS-9-scaled.jpg" alt="Camiseta Ave Crux Spes Unica - Imagen 2">
-				<img src="/pages-content/uploads/2025/06/CAMISETAS-8-600x400.jpg" data-galeria-img="/pages-content/uploads/2025/06/CAMISETAS-8-scaled.jpg" alt="Camiseta Ave Crux Spes Unica - Imagen 3">
-				<img src="/pages-content/uploads/2025/06/CAMISETAS-4-600x900.jpg" data-galeria-img="/pages-content/uploads/2025/06/CAMISETAS-4-scaled.jpg" alt="Camiseta Ave Crux Spes Unica - Imagen 4">
-				<img src="/pages-content/uploads/2025/06/CAMISETAS_01-600x400.jpg" data-galeria-img="/pages-content/uploads/2025/06/CAMISETAS_01-scaled.jpg" alt="Camiseta Ave Crux Spes Unica - Imagen 5">
-				<img src="/pages-content/uploads/2025/06/CAMISETAS-10-600x400.jpg" data-galeria-img="/pages-content/uploads/2025/06/CAMISETAS-10-scaled.jpg" alt="Camiseta Ave Crux Spes Unica - Imagen 6">
+				<img src="/pages-content/uploads/2025/06/CAMISETAS-6-600x750.jpg" data-galeria-img="/pages-content/uploads/2025/06/CAMISETAS-6-scaled.jpg" alt="Camiseta Ave Crux Spes Unica" fetchpriority="high">
+				<img src="/pages-content/uploads/2025/06/CAMISETAS-9-600x400.jpg" data-galeria-img="/pages-content/uploads/2025/06/CAMISETAS-9-scaled.jpg" alt="Camiseta Ave Crux Spes Unica - Imagen 2" loading="lazy">
+				<img src="/pages-content/uploads/2025/06/CAMISETAS-8-600x400.jpg" data-galeria-img="/pages-content/uploads/2025/06/CAMISETAS-8-scaled.jpg" alt="Camiseta Ave Crux Spes Unica - Imagen 3" loading="lazy">
+				<img src="/pages-content/uploads/2025/06/CAMISETAS-4-600x900.jpg" data-galeria-img="/pages-content/uploads/2025/06/CAMISETAS-4-scaled.jpg" alt="Camiseta Ave Crux Spes Unica - Imagen 4" loading="lazy">
+				<img src="/pages-content/uploads/2025/06/CAMISETAS_01-600x400.jpg" data-galeria-img="/pages-content/uploads/2025/06/CAMISETAS_01-scaled.jpg" alt="Camiseta Ave Crux Spes Unica - Imagen 5" loading="lazy">
+				<img src="/pages-content/uploads/2025/06/CAMISETAS-10-600x400.jpg" data-galeria-img="/pages-content/uploads/2025/06/CAMISETAS-10-scaled.jpg" alt="Camiseta Ave Crux Spes Unica - Imagen 6" loading="lazy">
 			</div>
 
-			<div>
+			<div id="div5">
 				<label data-carrusel="1">
 					<input type="radio" name="carrusel" checked>
 					<img src="/pages-content/uploads/2025/06/CAMISETAS-6-100x100.jpg" alt="Camiseta Ave Crux Spes Unica">
@@ -107,13 +109,15 @@
 			</div>
 		</section>
 
-		<form action="">
-			<h4 class="h41">Camiseta Ave Crux Spes Unica</h4>
-			<h3>16,00 € <small>IVA incluido</small></h3>
-			<label>
-				<p><em class="em1">Talla</em></p>
-				<select name="talla">
-					<option>Elige una opción</option>
+		<!-- Resumen y selector de variaciones -->
+		<form id="form2" action="" method="post">
+			<h4 id="h41" class="h41">Camiseta Ave Crux Spes Unica</h4>
+			<p id="p1"><b>16,00 €</b> <small>IVA incluido</small></p>
+
+			<div class="div2">
+				<label for="select3"><em class="em1">Talla</em></label>
+				<select id="select3" class="select1" name="talla" required>
+					<option value="">Elige una opción</option>
 					<option value="XS">XS</option>
 					<option value="S">S</option>
 					<option value="M">M</option>
@@ -122,124 +126,84 @@
 					<option value="2XL">2XL</option>
 					<option value="3XL">3XL</option>
 				</select>
-			</label>
-			<span>
-				<input type="number" min="0" max="30" name="cantidad">
-				<input type="submit" value="Añadir al carrito">
-			</span>
+			</div>
+
+			<hr>
+
+			<div id="div6">
+				<input id="input2" type="number" name="cantidad" value="1" min="1" max="30" step="1" aria-label="Cantidad de productos" inputmode="numeric">
+				<button id="button2" type="submit">Añadir al carrito</button>
+			</div>
 		</form>
 	</section>
 
-	<details name="1">
-		<summary><p>Descripción</p></summary>
-		<table>
-			<thead>
-				<tr>
-					<td>
-						<p>TABLA DE TALLAS</p>
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<p>S</p>
-					</td>
-					<td>
-						<p>[49cm/69cm]</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>M</p>
-					</td>
-					<td>
-						<p>[52cm/71cm]</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>L</p>
-					</td>
-					<td>
-						<p>[55cm/73cm]</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>XL</p>
-					</td>
-					<td>
-						<p>[58cm/75cm]</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>2XL</p>
-					</td>
-					<td>
-						<p>[62cm/77cm]</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>3XL</p>
-					</td>
-					<td>
-						<p>[66cm/79cm]</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</details>
+	<!-- Acordeones nativos exclusivos -->
+	<div id="div7">
+		<details id="details1" name="1" open>
+			<summary>Descripción</summary>
+			<table>
+				<thead>
+					<tr>
+						<th class="th1" colspan="2">TABLA DE TALLAS</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>S</td>
+						<td>[49cm/69cm]</td>
+					</tr>
+					<tr>
+						<td>M</td>
+						<td>[52cm/71cm]</td>
+					</tr>
+					<tr>
+						<td>L</td>
+						<td>[55cm/73cm]</td>
+					</tr>
+					<tr>
+						<td>XL</td>
+						<td>[58cm/75cm]</td>
+					</tr>
+					<tr>
+						<td>2XL</td>
+						<td>[62cm/77cm]</td>
+					</tr>
+					<tr>
+						<td>3XL</td>
+						<td>[66cm/79cm]</td>
+					</tr>
+				</tbody>
+			</table>
+		</details>
 
-	<details name="1">
-		<summary><p>Información adicional</p></summary>
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<p><em class="em1">Peso</em></p>
-					</td>
-					<td>
-						<p>N/D</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p><em class="em1">Color</em></p>
-					</td>
-					<td>
-						<p>Verde</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p><em class="em1">Material</em></p>
-					</td>
-					<td>
-						<p>Algodón 100%</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p><em class="em1">Gramaje</em></p>
-					</td>
-					<td>
-						<p>165 g/m²</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p><em class="em1">Talla</em></p>
-					</td>
-					<td>
-						<p>XS, S, M, L, XL, 2XL, 3XL</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</details>
+		<details id="details2" name="1">
+			<summary>Información adicional</summary>
+			<table>
+				<tbody>
+					<tr>
+						<th class="th1" scope="row"><em class="em1">Peso</em></th>
+						<td>N/D</td>
+					</tr>
+					<tr>
+						<th class="th1" scope="row"><em class="em1">Color</em></th>
+						<td>Verde</td>
+					</tr>
+					<tr>
+						<th class="th1" scope="row"><em class="em1">Material</em></th>
+						<td>Algodón 100%</td>
+					</tr>
+					<tr>
+						<th class="th1" scope="row"><em class="em1">Gramaje</em></th>
+						<td>165 g/m²</td>
+					</tr>
+					<tr>
+						<th class="th1" scope="row"><em class="em1">Talla</em></th>
+						<td>XS, S, M, L, XL, 2XL, 3XL</td>
+					</tr>
+				</tbody>
+			</table>
+		</details>
+	</div>
 </main>
 
 		<footer>

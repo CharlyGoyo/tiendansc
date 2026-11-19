@@ -87,6 +87,23 @@ button {
 	cursor:			pointer;
 }
 
+details {
+	border-bottom:	1px solid var(--gris2);
+	width:			100%;
+	& table {
+		margin-bottom:	20px;
+	}
+	& tbody th {
+		font-weight:	500;
+		width:			150px;
+	}
+	& tbody td {
+		color:			var(--negro2);
+		font-family:	'Montserrat', sans-serif;
+		font-size:		0.9375rem;
+	}
+}
+
 em {
 	font-style:	normal;
 }
@@ -146,6 +163,41 @@ h4 {
 	text-align:		center;
 }
 
+hr {
+	background-color:	var(--gris2);
+	border:				none;
+	height:				1px;
+	margin:				0;
+	width:				100%;
+}
+
+/* Estilo común a inputs; negado en checkbox (#input1), radios (#div5) y cantidad (#input2) */
+input {
+	background-color:	var(--blanco4);
+	border:				1px solid var(--gris2);
+	border-radius:		4px;
+	color:				var(--negro2);
+	font-family:		'Montserrat', sans-serif;
+	font-size:			1rem;
+	line-height:		1.5rem;
+	padding:			10px 14px;
+	transition:			border-color 0.2s;
+	width:				100%;
+	&:focus {
+		border-color:	var(--rojo);
+		outline:		none;
+	}
+}
+
+label {
+	color:			var(--negro2);
+	cursor:			pointer;
+	font-family:	'Montserrat', sans-serif;
+	font-size:		0.875rem;
+	font-weight:	500;
+	line-height:	1.25rem;
+}
+
 main {
 	display:		flex;
 	flex-direction:	column;
@@ -185,6 +237,19 @@ select {
 	line-height:	1.65rem;
 }
 
+summary {
+	color:			var(--negro2);
+	cursor:			pointer;
+	font-family:	'Montserrat', sans-serif;
+	font-size:		1rem;
+	font-weight:	700;
+	padding-block:	14px;
+	transition:		color 0.2s;
+	&:hover {
+		color:	var(--rojo);
+	}
+}
+
 table {
 	width:				100%;
 	border-collapse:	collapse;
@@ -192,6 +257,29 @@ table {
 
 td {
 	padding:	12px 16px;
+}
+
+textarea {
+	background-color:	var(--blanco4);
+	border:				1px solid var(--gris2);
+	border-radius:		4px;
+	color:				var(--negro2);
+	font-family:		'Montserrat', sans-serif;
+	font-size:			1rem;
+	line-height:		1.5rem;
+	min-height:			84px;
+	padding:			10px 14px;
+	resize:				vertical;
+	transition:			border-color 0.2s;
+	width:				100%;
+	&:focus {
+		border-color:	var(--rojo);
+		outline:		none;
+	}
+}
+
+tfoot {
+	background-color:	var(--blanco7);
 }
 
 th {
@@ -204,6 +292,22 @@ thead {
 
 tr {
 	border:	solid 1px var(--gris2);
+}
+
+/* Visor principal de imágenes del carrusel */
+div[data-carrusel="1"] {
+	aspect-ratio:		4 / 5;
+	background-color:	var(--blanco7);
+	border:				1px solid var(--gris2);
+	border-radius:		4px;
+	overflow:			hidden;
+	width:				100%;
+	& img {
+		display:	none;
+		height:		100%;
+		object-fit:	contain;
+		width:		100%;
+	}
 }
 
 /*------------------------------------*\
@@ -275,6 +379,13 @@ tr {
 	background-size:		cover;
 }
 
+/* Contenedor de cada campo de formulario (etiqueta + control) */
+.div2 {
+	display:		flex;
+	flex-direction:	column;
+	gap:			6px;
+}
+
 .em1 {
 
 }
@@ -285,6 +396,12 @@ tr {
 
 .em3 {
 	color:		var(--azul);
+}
+
+/* Asterisco rojo de campo obligatorio */
+.em4 {
+	color:			var(--rojo5);
+	font-weight:	700;
 }
 
 .form1 {
@@ -321,6 +438,13 @@ tr {
 	text-align:	center;
 }
 
+/* Texto secundario compacto del resumen y aviso legal */
+.p3 {
+	color:			var(--negro2);
+	font-size:		0.875rem;
+	line-height:	1.4rem;
+}
+
 .section1 {
 	flex-direction:	column;
 	gap:			16px;
@@ -332,10 +456,40 @@ tr {
 	gap:					48px;
 }
 
+/* Desplegables de formularios */
+.select1 {
+	background-color:	var(--blanco4);
+	border:				1px solid var(--gris2);
+	border-radius:		4px;
+	color:				var(--negro2);
+	padding:			10px 14px;
+	transition:			border-color 0.2s;
+	width:				100%;
+	&:focus {
+		border-color:	var(--rojo);
+		outline:		none;
+	}
+}
+
 .svg1 {
 	height:		20px;
 	width:		auto;
 	color:		var(--negro);
+}
+
+/* Celdas de importes alineadas a la derecha */
+.td1 {
+	text-align:	right;
+}
+
+/* Cabeceras de tabla alineadas a la izquierda */
+.th1 {
+	text-align:	left;
+}
+
+/* Cabecera de tabla de importes alineada a la derecha */
+.th2 {
+	text-align:	right;
 }
 
 /*------------------------------------*\
@@ -346,8 +500,189 @@ tr {
 	margin-right:	auto;
 }
 
+/* Botón único de confirmación de pedido */
+#button1 {
+	background-color:	var(--azul);
+	border:				none;
+	border-radius:		4px;
+	color:				var(--blanco4);
+	font-weight:		500;
+	padding:			15px 30px;
+	transition:			background-color 0.2s, color 0.2s;
+	width:				100%;
+	&:hover {
+		background-color:	var(--amarillo);
+		color:				var(--negro);
+	}
+}
+
+/* Botón añadir al carrito en ficha de producto */
+#button2 {
+	background-color:	var(--azul);
+	border:				none;
+	border-radius:		4px;
+	color:				var(--blanco4);
+	font-weight:		500;
+	padding:			14px 28px;
+	transition:			background-color 0.2s, color 0.2s;
+	&:hover {
+		background-color:	var(--amarillo);
+		color:				var(--negro);
+	}
+}
+
+/* Columna derecha del checkout (resumen + pago) */
+#div1 {
+	display:		flex;
+	flex-direction:	column;
+	gap:			16px;
+}
+
+/* Caja de política de privacidad, términos y botón de pago */
+#div2 {
+	background-color:	var(--blanco7);
+	border:				1px solid var(--gris2);
+	border-radius:		4px;
+	display:			flex;
+	flex-direction:		column;
+	gap:				16px;
+	padding:			20px;
+}
+
+/* Fila horizontal del checkbox de términos y condiciones */
+#div3 {
+	align-items:	flex-start;
+	display:		flex;
+	gap:			10px;
+}
+
+/* Subgrid de 2 columnas para nombre y apellidos */
+#div4 {
+	display:				grid;
+	gap:					16px;
+	grid-template-columns:	1fr 1fr;
+	@media (max-width: 600px) {
+		grid-template-columns:	1fr;
+	}
+}
+
+/* Rejilla de 4 columnas de miniaturas de galería */
+#div5 {
+	display:				grid;
+	gap:					12px;
+	grid-template-columns:	repeat(4, 1fr);
+	width:					100%;
+	& label {
+		aspect-ratio:	1 / 1;
+		border:			2px solid transparent;
+		border-radius:	4px;
+		cursor:			pointer;
+		overflow:		hidden;
+		transition:		border-color 0.2s;
+		&:has(input:checked) {
+			border-color:	var(--rojo);
+		}
+	}
+	& input {
+		height:			0;
+		opacity:		0;
+		padding:		0;
+		pointer-events:	none;
+		position:		absolute;
+		width:			0;
+	}
+	& img {
+		display:	block;
+		height:		100%;
+		object-fit:	cover;
+		opacity:	0.55;
+		transition:	opacity 0.2s;
+		width:		100%;
+		&:hover {
+			opacity:	1;
+		}
+	}
+	& label:has(input:checked) img {
+		opacity:	1;
+	}
+}
+
+/* Fila de selector de cantidad + botón añadir al carrito */
+#div6 {
+	align-items:	stretch;
+	display:		flex;
+	gap:			16px;
+}
+
+/* Contenedor de acordeones de descripción e información adicional */
+#div7 {
+	display:		flex;
+	flex-direction:	column;
+	margin-top:		16px;
+	width:			100%;
+}
+
+/* Formulario principal de facturación y envío */
+#form1 {
+	display:		flex;
+	flex-direction:	column;
+	gap:			16px;
+}
+
+/* Formulario de selección de talla y compra en ficha de producto */
+#form2 {
+	display:		flex;
+	flex-direction:	column;
+	gap:			20px;
+	width:			100%;
+}
+
+/* Título principal en ficha de producto */
+#h41 {
+	font-size:		2rem;
+	font-weight:	400;
+	line-height:	1.3;
+	@media (max-width: 921px) {
+		font-size:	1.75rem;
+	}
+}
+
+/* Niega el width: 100% y padding de input para el checkbox del checkout */
+#input1 {
+	accent-color:	var(--rojo);
+	cursor:			pointer;
+	height:			16px;
+	margin-top:		3px;
+	padding:		0;
+	width:			16px;
+}
+
+/* Input numérico de cantidad en ficha de producto */
+#input2 {
+	min-height:	46px;
+	padding:	8px;
+	text-align:	center;
+	width:		72px;
+}
+
+#label1 {
+	font-weight:	400;
+}
+
 #main1 {
 	max-width:		1104px;
+}
+
+/* Precio en ficha de producto */
+#p1 {
+	color:			var(--negro);
+	font-size:		1.5rem;
+	line-height:	1.4;
+	& small {
+		color:			var(--negro2);
+		font-size:		0.875rem;
+		font-weight:	400;
+	}
 }
 
 #section1 {
@@ -365,4 +700,35 @@ tr {
 	height:				100px;
 	width:				100%;
 	background-color:	var(--blanco6);
+}
+
+/* Grid principal del checkout: 2 columnas en escritorio y 1 en móvil */
+#section3 {
+	align-items:			start;
+	display:				grid;
+	gap:					48px;
+	grid-template-columns:	5fr 4fr;
+	width:					100%;
+	@media (max-width: 921px) {
+		gap:					32px;
+		grid-template-columns:	1fr;
+	}
+}
+
+/* Grid principal de ficha de producto + sincronización CSS de carrusel */
+#section4 {
+	align-items:	start;
+	width:			100%;
+	&:has(#div5 label:nth-child(1) input:checked) div[data-carrusel="1"] img:nth-child(1),
+	&:has(#div5 label:nth-child(2) input:checked) div[data-carrusel="1"] img:nth-child(2),
+	&:has(#div5 label:nth-child(3) input:checked) div[data-carrusel="1"] img:nth-child(3),
+	&:has(#div5 label:nth-child(4) input:checked) div[data-carrusel="1"] img:nth-child(4),
+	&:has(#div5 label:nth-child(5) input:checked) div[data-carrusel="1"] img:nth-child(5),
+	&:has(#div5 label:nth-child(6) input:checked) div[data-carrusel="1"] img:nth-child(6) {
+		display:	block;
+	}
+	@media (max-width: 921px) {
+		gap:					24px;
+		grid-template-columns:	1fr;
+	}
 }
