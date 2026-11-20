@@ -58,176 +58,161 @@
 				<img src="/pages-content/uploads/2025/06/cropped-Logo_NSC-02-199x87.png" alt="Nuestra Señora de la Cristiandad – España" srcset="/pages-content/uploads/2025/06/cropped-Logo_NSC-02-199x87.png 199w, /pages-content/uploads/2025/06/cropped-Logo_NSC-02-300x131.png 300w, /pages-content/uploads/2025/06/cropped-Logo_NSC-02.png 567w" sizes="(max-width: 199px) 100vw, 199px">
 			</a>
 			<p><a class="a2" href="https://nscristiandad.es">Volver a nscristiandad.es</a></p>
-			<a data-carrito-link>
+			<p><a class="a2" href="/carrito">
 				<!--utils/svg/cart-shopping-solid-full.svg-->
-				<svg id="svg1" viewBox="0 0 569.4601 528" xmlns="http://www.w3.org/2000/svg">
+				<svg class="svg2" viewBox="0 0 569.4601 528" xmlns="http://www.w3.org/2000/svg">
 					<path d="M 24 0 C 10.7 0 0 10.7 0 24 C 0 37.3 10.7 48 24 48 L 69.3 48 C 73.2 48 76.5 50.8 77.2 54.6 L 129.3 340.9 C 135.5 375.1 165.3 400 200.1 400 L 456 400 C 469.3 400 480 389.3 480 376 C 480 362.7 469.3 352 456 352 L 200.1 352 C 188.50002 352 178.59999 343.70004 176.5 332.3 L 171.4 304 L 475 304 C 505.80002 304 532.2 282.1 537.9 251.8 L 568.9 85.9 C 572.6 66.2 557.5 48 537.4 48 L 124.7 48 L 124.3 46 C 119.5 19.4 96.3 0 69.2 0 Z M 208 528 C 234.5 528 256 506.5 256 480 C 256 453.5 234.5 432 208 432 C 181.5 432 160 453.5 160 480 C 160 506.5 181.5 528 208 528 Z M 432 528 C 458.5 528 480 506.5 480 480 C 480 453.5 458.5 432 432 432 C 405.5 432 384 453.5 384 480 C 384 506.5 405.5 528 432 528 Z"/>
 				</svg>
 				<!--enlace.insertAdjacentText('afterbegin', 'Texto antes ');-->
-			</a>
+			</a></p>
 		</nav>
 <main class="main1">
-	<!-- Grid principal de 2 columnas (5fr formulario / 4fr resumen de pedido) -->
-	<section id="section3">
-		<form id="form1" action="/finalizar-compra" method="post">
-			<h4 class="h41">Facturación y envío</h4>
+	<section class="section2">
+		<form id="form1" action="/checkout" method="post">
+			<h4 class="h42">Facturación y envío</h4>
 			<hr>
-
-			<!-- Fila de 2 columnas para nombre y apellidos -->
-			<div id="div4">
-				<div class="div2">
-					<label for="input2">Nombre <em class="em4">*</em></label>
-					<input id="input2" type="text" name="nombre" autocomplete="given-name" required>
-				</div>
-				<div class="div2">
-					<label for="input3">Apellidos <em class="em4">*</em></label>
-					<input id="input3" type="text" name="apellidos" autocomplete="family-name" required>
-				</div>
-			</div>
-
-			<div class="div2">
-				<label for="select1">País / Región <em class="em4">*</em></label>
-				<select id="select1" class="select1" name="region" autocomplete="country" required>
+			<label class="label1">
+				<p class="p3"><b class="b1"><em class="em1">Nombre </em><em class="em4">*</em></b></p>
+				<input class="input2" type="text" name="nombre" autocomplete="given-name" required>
+			</label>
+			<label class="label1">
+				<p class="p3"><b class="b1"><em class="em1">Apellidos </em><em class="em4">*</em></b></p>
+				<input class="input2" type="text" name="apellidos" autocomplete="family-name" required>
+			</label>
+			<label class="label1">
+				<p class="p3"><b class="b1"><em class="em1">País / Región </em><em class="em4">*</em></b></p>
+				<select class="select1" name="region" autocomplete="country" required>
 					<option value="ES" selected>España</option>
 				</select>
-			</div>
-
-			<div class="div2">
-				<label for="input4">Dirección <em class="em4">*</em></label>
-				<input id="input4" type="text" name="direccion1" placeholder="Nombre de la calle y número de la casa" autocomplete="address-line1" required>
-				<!-- aria-label evita duplicar <label> visible manteniendo validez W3C -->
-				<input id="input5" type="text" name="direccion2" placeholder="Apartamento, habitación, etc. (opcional)" aria-label="Apartamento, habitación, etc. (opcional)" autocomplete="address-line2">
-			</div>
-
-			<div class="div2">
-				<label for="input6">Código postal / ZIP <em class="em4">*</em></label>
-				<input id="input6" type="text" name="postal" autocomplete="postal-code" required>
-			</div>
-
-			<div class="div2">
-				<label for="input7">Población <em class="em4">*</em></label>
-				<input id="input7" type="text" name="poblacion" autocomplete="address-level2" required>
-			</div>
-
-			<div class="div2">
-				<label for="select2">Provincia <em class="em4">*</em></label>
-				<select id="select2" class="select1" name="provincia" autocomplete="address-level1" required>
-					<option value="">Elige una opción…</option>
-					<option value="C">La Coruña</option>
-					<option value="VI">Álava</option>
-					<option value="AB">Albacete</option>
-					<option value="A">Alicante</option>
-					<option value="AL">Almería</option>
-					<option value="O">Asturias</option>
-					<option value="AV">Ávila</option>
-					<option value="BA">Badajoz</option>
-					<option value="PM">Baleares</option>
-					<option value="B">Barcelona</option>
-					<option value="BU">Burgos</option>
-					<option value="CC">Cáceres</option>
-					<option value="CA">Cádiz</option>
-					<option value="S">Cantabria</option>
-					<option value="CS">Castellón</option>
-					<option value="CE">Ceuta</option>
-					<option value="CR">Ciudad Real</option>
-					<option value="CO">Córdoba</option>
-					<option value="CU">Cuenca</option>
-					<option value="GI">Gerona</option>
-					<option value="GR">Granada</option>
-					<option value="GU">Guadalajara</option>
-					<option value="SS">Guipúzcoa</option>
-					<option value="H">Huelva</option>
-					<option value="HU">Huesca</option>
-					<option value="J">Jaén</option>
-					<option value="LO">La Rioja</option>
-					<option value="GC">Las Palmas</option>
-					<option value="LE">León</option>
-					<option value="L">Lérida</option>
-					<option value="LU">Lugo</option>
-					<option value="M">Madrid</option>
-					<option value="MA">Málaga</option>
-					<option value="ML">Melilla</option>
-					<option value="MU">Murcia</option>
-					<option value="NA">Navarra</option>
-					<option value="OR">Orense</option>
-					<option value="P">Palencia</option>
-					<option value="PO">Pontevedra</option>
-					<option value="SA">Salamanca</option>
-					<option value="TF">Santa Cruz de Tenerife</option>
-					<option value="SG">Segovia</option>
-					<option value="SE">Sevilla</option>
-					<option value="SO">Soria</option>
-					<option value="T">Tarragona</option>
-					<option value="TE">Teruel</option>
-					<option value="TO">Toledo</option>
-					<option value="V">Valencia</option>
-					<option value="VA">Valladolid</option>
-					<option value="BI">Vizcaya</option>
-					<option value="ZA">Zamora</option>
-					<option value="Z">Zaragoza</option>
-				</select>
-			</div>
-
-			<div class="div2">
-				<label for="input8">Teléfono <em class="em4">*</em></label>
-				<input id="input8" type="tel" name="telefono" autocomplete="tel" required>
-			</div>
-
-			<div class="div2">
-				<label for="input9">Dirección de correo electrónico <em class="em4">*</em></label>
-				<input id="input9" type="email" name="correo" autocomplete="email" required>
-			</div>
-
-			<h4 class="h41">Información adicional</h4>
+			</label>
+			<label class="label1">
+				<p class="p3"><b class="b1"><em class="em1">Dirección </em><em class="em4">*</em></b></p>
+				<input class="input2" type="text" name="direccion1" placeholder="Nombre de la calle y número de la casa" autocomplete="address-line1" required>
+			</label>
+			<input class="input2" type="text" name="direccion2" placeholder="Apartamento, habitación, etc. (opcional)" aria-label="Apartamento, habitación, etc. (opcional)" autocomplete="address-line2">
+			<label class="label1">
+				<p class="p3"><b class="b1"><em class="em1">Código postal / ZIP </em><em class="em4">*</em></b></p>
+				<input class="input2" class="input2" type="text" name="postal" autocomplete="postal-code" required>
+			</label>
+			<label class="label1">
+				<p class="p3"><b class="b1"><em class="em1">Población </em><em class="em4">*</em></b></p>
+				<input class="input2" type="text" name="poblacion" autocomplete="address-level2" required>
+			</label>
+			<label class="label1">
+				<p class="p3"><b class="b1"><em class="em1">Provincia </em><em class="em4">*</em></b></p>
+				<input class="input3" name="provincia" autocomplete="address-level1" list="datalist1" placeholder="Elige una opción…" required>
+				<datalist id="datalist1">
+					<option value="La Coruña"></option>
+					<option value="Álava"></option>
+					<option value="Albacete"></option>
+					<option value="Alicante"></option>
+					<option value="Almería"></option>
+					<option value="Asturias"></option>
+					<option value="Ávila"></option>
+					<option value="Badajoz"></option>
+					<option value="Baleares"></option>
+					<option value="Barcelona"></option>
+					<option value="Burgos"></option>
+					<option value="Cáceres"></option>
+					<option value="Cádiz"></option>
+					<option value="Cantabria"></option>
+					<option value="Castellón"></option>
+					<option value="Ceuta"></option>
+					<option value="Ciudad Real"></option>
+					<option value="Córdoba"></option>
+					<option value="Cuenca"></option>
+					<option value="Gerona"></option>
+					<option value="Granada"></option>
+					<option value="Guadalajara"></option>
+					<option value="Guipúzcoa"></option>
+					<option value="Huelva"></option>
+					<option value="Huesca"></option>
+					<option value="Jaén"></option>
+					<option value="La Rioja"></option>
+					<option value="Las Palmas"></option>
+					<option value="León"></option>
+					<option value="Lérida"></option>
+					<option value="Lugo"></option>
+					<option value="Madrid"></option>
+					<option value="Málaga"></option>
+					<option value="Melilla"></option>
+					<option value="Murcia"></option>
+					<option value="Navarra"></option>
+					<option value="Orense"></option>
+					<option value="Palencia"></option>
+					<option value="Pontevedra"></option>
+					<option value="Salamanca"></option>
+					<option value="Santa Cruz de Tenerife"></option>
+					<option value="Segovia"></option>
+					<option value="Sevilla"></option>
+					<option value="Soria"></option>
+					<option value="Tarragona"></option>
+					<option value="Teruel"></option>
+					<option value="Toledo"></option>
+					<option value="Valencia"></option>
+					<option value="Valladolid"></option>
+					<option value="Vizcaya"></option>
+					<option value="Zamora"></option>
+					<option value="Zaragoza"></option>
+				</datalist>
+			</label>
+			<label class="label1">
+				<p class="p3"><b class="b1"><em class="em1">Teléfono </em><em class="em4">*</em></b></p>
+				<input class="input2" type="tel" name="telefono" autocomplete="tel" required>
+			</label>
+			<label class="label1">
+				<p class="p3"><b class="b1"><em class="em1">Dirección de correo electrónico </em><em class="em4">*</em></b></p>
+				<input class="input2" type="email" name="correo" autocomplete="email" required>
+			</label>
+			<h4 class="h42">Información adicional</h4>
 			<hr>
-
-			<div class="div2">
-				<label for="textarea1">Notas del pedido (opcional)</label>
+			<label for="textarea1">
+				<p class="p3"><b class="b1"><em class="em1">Notas del pedido (opcional)</em></b></p>
 				<textarea id="textarea1" name="notas" rows="3" cols="5" placeholder="Notas sobre tu pedido, por ejemplo, notas especiales para la entrega."></textarea>
-			</div>
+			</label>
 		</form>
 
-		<!-- Columna derecha: resumen del pedido y confirmación -->
-		<div id="div1">
-			<h4 class="h41">Tu pedido</h4>
+		<div class="div2" id="div1">
+			<h4 class="h42">Tu pedido</h4>
 			<table>
-				<thead>
-					<tr>
-						<th class="th1">Producto</th>
-						<th class="th2">Subtotal</th>
+				<thead class="thead1">
+					<tr class="tr1">
+						<th class="th1">
+							<p>Producto</p>
+						</th>
+						<th class="th1">
+							<p class="p4">Subtotal</p>
+						</th>
 					</tr>
 				</thead>
-				<!-- Contenedor para inyectar dinámicamente las líneas del carrito -->
-				<tbody id="tbody1">
-					<tr>
-						<td><br></td>
-						<td class="td1">€</td>
+				<tbody>
+					<tr class="tr1">
+						<td><p>holllaaaa<br>x4</p></td>
+						<td><p class="p4">€</p></td>
+					</tr>
+					<tr class="tr1">
+						<td><p>Subtotal</p></td>
+						<td><p class="p4">€</p></td>
+					</tr>
+					<tr class="tr1">
+						<td><p>Envío</p></td>
+						<td><p class="p4"><em class="em1">Estándar: 5,00 €</em></p></td>
+					</tr>
+					<tr class="tr1">
+						<td><p>Total</p></td>
+						<td><p class="p4">€</p></td>
 					</tr>
 				</tbody>
-				<tfoot>
-					<tr>
-						<th class="th1">Subtotal</th>
-						<td id="td1" class="td1">€</td>
-					</tr>
-					<tr>
-						<th class="th1">Envío</th>
-						<td class="td1"><p class="p3">Estándar: <b>5,00 €</b></p></td>
-					</tr>
-					<tr>
-						<th class="th1">Total</th>
-						<td id="td2" class="td1"><b>€</b></td>
-					</tr>
-				</tfoot>
 			</table>
 
 			<!-- Bloque legal y botón de envío fuera de <table> para cumplir HTML5 -->
-			<div id="div2">
-				<p class="p3">Tus datos personales se utilizarán para procesar tu pedido: <a class="a2" href="/politica-de-privacidad">Política de privacidad</a>.</p>
-				<div id="div3">
-					<input id="input1" type="checkbox" name="terminos" required>
-					<label id="label1" for="input1">He leído y estoy de acuerdo con los <a class="a2" href="/terminos">términos y condiciones</a> de la web <em class="em4">*</em></label>
-				</div>
-				<!-- Asociado al formulario de la columna izquierda mediante form="form1" -->
+			<div class="div2">
+				<p>Tus datos personales se utilizarán para procesar tu pedido: <a class="a2" href="/politica-de-privacidad">Política de privacidad</a>.</p>
+					<label for="input1">
+						<p><input id="input1" type="checkbox" name="terminos" required>
+						He leído y estoy de acuerdo con los <a class="a2" href="/terminos">términos y condiciones</a> de la web <em class="em4">*</em></p>
+					</label>
+
 				<button id="button1" type="submit" form="form1">Realizar el pedido</button>
 			</div>
 		</div>

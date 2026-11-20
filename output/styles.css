@@ -32,6 +32,7 @@
 	--amarillo3:	#fc0;
 	--azul:			#243888;
 	--azul2:		#000751;
+	--azul3:		#007cba;
 	--blanco:		#fefefe;
 	--blanco2:		#d5d5d5;
 	--blanco3:		#ededede5;
@@ -41,10 +42,12 @@
 	--blanco7:		#fbfbfb;
 	--gris:			#f3f3f3;
 	--gris2:		#d1d5db;
+	--gris3:		#475569;
+	--gris4:		#515151;
+	--gris5:		#6b6b6b;
 	--marron:		#392525;
 	--marron2:		#020000d9;
 	--negro:		#000000;
-	--negro2:		#2b2b2b;
 	--rojo:			#bc221d;
 	--rojo2:		#9f1315;
 	--rojo3:		#b80000;
@@ -87,21 +90,9 @@ button {
 	cursor:			pointer;
 }
 
-details {
-	border-bottom:	1px solid var(--gris2);
-	width:			100%;
-	& table {
-		margin-bottom:	20px;
-	}
-	& tbody th {
-		font-weight:	500;
-		width:			150px;
-	}
-	& tbody td {
-		color:			var(--negro2);
-		font-family:	'Montserrat', sans-serif;
-		font-size:		0.9375rem;
-	}
+div {
+	position:	relative;
+	width:		100%;
 }
 
 em {
@@ -117,6 +108,16 @@ footer {
 	width:				100%;
 	justify-content:	center;
 	align-items:		center;
+}
+
+form {
+	display:				grid;
+	grid-template-columns:	1fr 1fr;
+	gap:					12px 48px;
+	width:					100%;
+	& > * {
+		grid-column:	span 2;
+	}
 }
 
 h1 {
@@ -171,31 +172,25 @@ hr {
 	width:				100%;
 }
 
-/* Estilo común a inputs; negado en checkbox (#input1), radios (#div5) y cantidad (#input2) */
 input {
 	background-color:	var(--blanco4);
 	border:				1px solid var(--gris2);
-	border-radius:		4px;
-	color:				var(--negro2);
+	color:				var(--gris3);
 	font-family:		'Montserrat', sans-serif;
 	font-size:			1rem;
-	line-height:		1.5rem;
-	padding:			10px 14px;
+	line-height:		1.25rem;
+	height:				40px;
+	padding:			12px 16px;
+	text-align:			left;
 	transition:			border-color 0.2s;
-	width:				100%;
 	&:focus {
-		border-color:	var(--rojo);
 		outline:		none;
+		border-color:	var(--azul);
 	}
 }
 
 label {
-	color:			var(--negro2);
 	cursor:			pointer;
-	font-family:	'Montserrat', sans-serif;
-	font-size:		0.875rem;
-	font-weight:	500;
-	line-height:	1.25rem;
 }
 
 main {
@@ -211,6 +206,7 @@ nav {
 	padding-inline: 	max(20px, calc(50% - 600px));
 	width:				100%;
 	display:			flex;
+	gap:				16px;
 	position:			relative;
 	align-items:		center;
 }
@@ -232,21 +228,26 @@ section {
 }
 
 select {
-	font-size:		1rem;
-	font-family:	'Montserrat', sans-serif;
-	line-height:	1.65rem;
-}
-
-summary {
-	color:			var(--negro2);
-	cursor:			pointer;
-	font-family:	'Montserrat', sans-serif;
-	font-size:		1rem;
-	font-weight:	700;
-	padding-block:	14px;
-	transition:		color 0.2s;
-	&:hover {
-		color:	var(--rojo);
+	appearance:				none;
+	background-attachment:	scroll;
+	background-clip:		border-box;
+	background-color:		transparent;
+	background-image:		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='26px' height='16.043px' fill='%23000000' viewBox='57 35.171 26 16.043' enable-background='new 57 35.171 26 16.043' xml:space='preserve' %3E%3Cpath d='M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z'%3E%3C/path%3E%3C/svg%3E");
+	background-position:	98% 50%;
+	background-repeat:		no-repeat;
+	background-size:		12.8px auto;
+	border-radius:			4px;
+	border:					1px solid var(--gris2);
+	color:					var(--gris3);
+	font-family:			'Montserrat', sans-serif;
+	font-size:				1rem;
+	line-height:			1.25rem;
+	padding:				10px 14px;
+	transition:				border-color 0.2s;
+	width:					100%;
+	&:focus {
+		border-color:	var(--azul);
+		outline:		none;
 	}
 }
 
@@ -262,19 +263,19 @@ td {
 textarea {
 	background-color:	var(--blanco4);
 	border:				1px solid var(--gris2);
-	border-radius:		4px;
-	color:				var(--negro2);
+	color:				var(--gris3);
 	font-family:		'Montserrat', sans-serif;
 	font-size:			1rem;
 	line-height:		1.5rem;
 	min-height:			84px;
 	padding:			10px 14px;
 	resize:				vertical;
+	text-align:			left;
 	transition:			border-color 0.2s;
 	width:				100%;
 	&:focus {
-		border-color:	var(--rojo);
 		outline:		none;
+		border-color:	var(--azul);
 	}
 }
 
@@ -283,7 +284,8 @@ tfoot {
 }
 
 th {
-	padding:	12px 16px;
+	font-weight:	500;
+	padding:		12px 16px;
 }
 
 thead {
@@ -292,22 +294,6 @@ thead {
 
 tr {
 	border:	solid 1px var(--gris2);
-}
-
-/* Visor principal de imágenes del carrusel */
-div[data-carrusel="1"] {
-	aspect-ratio:		4 / 5;
-	background-color:	var(--blanco7);
-	border:				1px solid var(--gris2);
-	border-radius:		4px;
-	overflow:			hidden;
-	width:				100%;
-	& img {
-		display:	none;
-		height:		100%;
-		object-fit:	contain;
-		width:		100%;
-	}
 }
 
 /*------------------------------------*\
@@ -339,6 +325,10 @@ div[data-carrusel="1"] {
 	}
 }
 
+.b1 {
+	font-weight:	500;
+}
+
 .button1 {
 	background-color:	transparent;
 	border:				none;
@@ -348,25 +338,46 @@ div[data-carrusel="1"] {
 	background-color:	var(--azul);
 	border-radius:		4px;
 	border:				none;
-	padding:			15px 30px;
 	color:				var(--blanco4);
-	font-weight:		500;
+	font-weight:		400;
+	padding:			15px 30px;
+	&:disabled {
+		opacity:	0.5;
+		cursor:		not-allowed;
+		&:hover {
+			background-color:	var(--rojo);
+			color:				var(--blanco4);
+		}
+	}
+	&:hover {
+		background-color:	var(--amarillo);
+		color:				var(--negro);
+	}
 }
 
 .button3 {
+	align-items:		center;
 	background-color:	var(--blanco4);
-	height:				36px;
-	width:				36px;
 	border-radius:		50%;
 	border:				none;
-	font-size:			1.2rem;
 	display:			flex;
-	justify-content:	center;
-	align-items:		center;
-	right:				12px;
-	top:				12px;
+	font-size:			1.2rem;
 	font-variant-emoji: text;
+	height:				36px;
+	justify-content:	center;
 	position:			absolute;
+	right:				16px;
+	top:				16px;
+	width:				36px;
+	z-index:			10;
+}
+
+.details1 {
+	width:			100%;
+	&[open] > summary {
+		border-top:		solid 3px var(--rojo);
+		margin-top:		-3px;
+	}
 }
 
 .div1 {
@@ -379,29 +390,52 @@ div[data-carrusel="1"] {
 	background-size:		cover;
 }
 
-/* Contenedor de cada campo de formulario (etiqueta + control) */
 .div2 {
-	display:		flex;
-	flex-direction:	column;
-	gap:			6px;
+	display:				flex;
+	flex-direction:			column;
+	gap:					16px;
+}
+
+.div3 {
+	-ms-overflow-style: none;
+	align-items:		start;
+	background-color:	transparent;
+	display:			flex;
+	flex-direction:		row;
+	justify-content:	start;
+	min-width:			0;
+	overflow:			hidden;
+	scroll-behavior:	smooth;
+	scroll-snap-type:	x mandatory;
+	scrollbar-width: 	none;
+	/* galeria.js: */
+	transition:			height 0.3s ease;
+}
+
+.div4 {
+	display:				grid;
+	gap:					16px;
+	grid-template-columns:	repeat(4, minmax(0, 1fr));
+}
+
+.div5 {
+	border-top:		1px solid var(--gris2);
+	padding-top:	50px;
 }
 
 .em1 {
-
-}
-
-.em2 {
-
+	color:	var(--rojo);
 }
 
 .em3 {
-	color:		var(--azul);
+	color:	var(--azul);
 }
 
 /* Asterisco rojo de campo obligatorio */
 .em4 {
 	color:			var(--rojo5);
 	font-weight:	700;
+	cursor:			help;
 }
 
 .form1 {
@@ -415,17 +449,86 @@ div[data-carrusel="1"] {
 	text-align:		left;
 }
 
+.h42 {
+	text-align:	left;
+}
+
+.img1 {
+	flex: 				0 0 100%;
+	height:				auto;
+	object-fit:			contain;
+	scroll-snap-align: 	start;
+	scroll-snap-stop: 	always;
+	width:				100%;
+	will-change:		transform, transform-origin;
+}
+
+.img2 {
+	object-fit:	cover;
+	width:		100%;
+	height:		100%;
+}
+
 .input1 {
-	border:			1px solid var(--gris2);
-	font-family:	'Montserrat', sans-serif;
-	font-size:		1rem;
-	text-align:		center;
-	line-height:	1.25rem;
 	padding:		5px;
+	text-align:		center;
+	line-height:	1.5rem;
+}
+
+.input2 {
+}
+
+.input3 {
+	background-attachment:	scroll;
+	background-clip:		border-box;
+	background-image:		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='26px' height='16.043px' fill='%23000000' viewBox='57 35.171 26 16.043' enable-background='new 57 35.171 26 16.043' xml:space='preserve' %3E%3Cpath d='M57.5,38.193l12.5,12.5l12.5-12.5l-2.5-2.5l-10,10l-10-10L57.5,38.193z'%3E%3C/path%3E%3C/svg%3E");
+	background-position:	98% 50%;
+	background-repeat:		no-repeat;
+	background-size:		12.8px auto;
+}
+
+.input4 {
+	background-color:	var(--azul);
+	border-radius:		4px;
+	border:				none;
+	color:				var(--blanco4);
+	font-weight:		400;
+	padding:			10px 20px;
+	&:disabled {
+		opacity:	0.5;
+		cursor:		not-allowed;
+	}
+	&:hover {
+		background-color:	var(--amarillo);
+		color:				var(--negro);
+	}
+}
+
+.input5 {
+	display:	none;
+}
+
+.label1 {
+	display:		flex;
+	flex-direction:	column;
+}
+
+.label2 {
+	width:			100%;
+	aspect-ratio:	1/1;
+	& > img {
+		opacity:	0.5;
+	}
+	&:has(input:checked) > img,
+	&:hover > img {
+		opacity:	1;
+	}
 }
 
 .main1 {
-	max-width:	1200px;
+	margin-top:	60px;
+	max-width:	1240px;
+	padding:	0 20px;
 	width:		100%;
 }
 
@@ -438,36 +541,56 @@ div[data-carrusel="1"] {
 	text-align:	center;
 }
 
-/* Texto secundario compacto del resumen y aviso legal */
 .p3 {
-	color:			var(--negro2);
-	font-size:		0.875rem;
-	line-height:	1.4rem;
+	font-size:		0.95rem;
+	line-height:	1.8rem;
+}
+
+.p4 {
+	text-align:	right;
+}
+
+/* Precio en ficha de producto */
+.p5 {
+	font-size:		1.5rem;
+	line-height:	2.475rem;
 }
 
 .section1 {
-	flex-direction:	column;
-	gap:			16px;
+	flex-direction:		column;
+	gap:				16px;
 }
 
 .section2 {
+	align-items:			start;
 	display:				grid;
-	grid-template-columns:	5fr 4fr;
 	gap:					48px;
+	grid-template-columns:	5fr 4fr;
+	width:					100%;
+	@media (max-width: 921px) {
+		gap:					32px;
+		grid-template-columns:	1fr;
+	}
 }
 
-/* Desplegables de formularios */
-.select1 {
-	background-color:	var(--blanco4);
-	border:				1px solid var(--gris2);
-	border-radius:		4px;
-	color:				var(--negro2);
-	padding:			10px 14px;
-	transition:			border-color 0.2s;
-	width:				100%;
-	&:focus {
-		border-color:	var(--rojo);
-		outline:		none;
+.span1 {
+	display:	flex;
+	gap:		16px;
+}
+
+.summary1 {
+	color:			var(--gris4);
+	cursor:			pointer;
+	font-family:	'Montserrat', sans-serif;
+	font-size:		1rem;
+	font-weight:	500;
+	line-height:	2.65rem;
+	list-style:		none;
+	transition:		color 0.2s;
+	position:		absolute;
+	top:			0;
+	&:hover {
+		color:	var(--gris5);
 	}
 }
 
@@ -477,19 +600,22 @@ div[data-carrusel="1"] {
 	color:		var(--negro);
 }
 
-/* Celdas de importes alineadas a la derecha */
+.svg2 {
+	height:	1em;
+	fill:	currentColor;
+	width:	auto;
+}
+
 .td1 {
-	text-align:	right;
+	border:	solid 1px var(--gris2);
 }
 
-/* Cabeceras de tabla alineadas a la izquierda */
-.th1 {
-	text-align:	left;
+.thead1 {
+	background-color:	transparent;
 }
 
-/* Cabecera de tabla de importes alineada a la derecha */
-.th2 {
-	text-align:	right;
+.tr1 {
+	border-width:	0 0 1px 0;
 }
 
 /*------------------------------------*\
@@ -516,173 +642,25 @@ div[data-carrusel="1"] {
 	}
 }
 
-/* Botón añadir al carrito en ficha de producto */
-#button2 {
-	background-color:	var(--azul);
-	border:				none;
-	border-radius:		4px;
-	color:				var(--blanco4);
-	font-weight:		500;
-	padding:			14px 28px;
-	transition:			background-color 0.2s, color 0.2s;
-	&:hover {
-		background-color:	var(--amarillo);
-		color:				var(--negro);
-	}
-}
-
-/* Columna derecha del checkout (resumen + pago) */
 #div1 {
-	display:		flex;
-	flex-direction:	column;
-	gap:			16px;
+	border:			solid 1px var(--gris2);
+	padding:		36px 32px;
 }
 
-/* Caja de política de privacidad, términos y botón de pago */
-#div2 {
-	background-color:	var(--blanco7);
-	border:				1px solid var(--gris2);
-	border-radius:		4px;
-	display:			flex;
-	flex-direction:		column;
-	gap:				16px;
-	padding:			20px;
-}
-
-/* Fila horizontal del checkbox de términos y condiciones */
-#div3 {
-	align-items:	flex-start;
-	display:		flex;
-	gap:			10px;
-}
-
-/* Subgrid de 2 columnas para nombre y apellidos */
-#div4 {
-	display:				grid;
-	gap:					16px;
-	grid-template-columns:	1fr 1fr;
-	@media (max-width: 600px) {
-		grid-template-columns:	1fr;
-	}
-}
-
-/* Rejilla de 4 columnas de miniaturas de galería */
-#div5 {
-	display:				grid;
-	gap:					12px;
-	grid-template-columns:	repeat(4, 1fr);
-	width:					100%;
-	& label {
-		aspect-ratio:	1 / 1;
-		border:			2px solid transparent;
-		border-radius:	4px;
-		cursor:			pointer;
-		overflow:		hidden;
-		transition:		border-color 0.2s;
-		&:has(input:checked) {
-			border-color:	var(--rojo);
-		}
-	}
-	& input {
-		height:			0;
-		opacity:		0;
-		padding:		0;
-		pointer-events:	none;
-		position:		absolute;
-		width:			0;
-	}
-	& img {
-		display:	block;
-		height:		100%;
-		object-fit:	cover;
-		opacity:	0.55;
-		transition:	opacity 0.2s;
-		width:		100%;
-		&:hover {
-			opacity:	1;
-		}
-	}
-	& label:has(input:checked) img {
-		opacity:	1;
-	}
-}
-
-/* Fila de selector de cantidad + botón añadir al carrito */
-#div6 {
-	align-items:	stretch;
-	display:		flex;
-	gap:			16px;
-}
-
-/* Contenedor de acordeones de descripción e información adicional */
-#div7 {
-	display:		flex;
-	flex-direction:	column;
-	margin-top:		16px;
-	width:			100%;
-}
-
-/* Formulario principal de facturación y envío */
 #form1 {
-	display:		flex;
-	flex-direction:	column;
-	gap:			16px;
-}
-
-/* Formulario de selección de talla y compra en ficha de producto */
-#form2 {
-	display:		flex;
-	flex-direction:	column;
-	gap:			20px;
-	width:			100%;
-}
-
-/* Título principal en ficha de producto */
-#h41 {
-	font-size:		2rem;
-	font-weight:	400;
-	line-height:	1.3;
-	@media (max-width: 921px) {
-		font-size:	1.75rem;
+	& > :nth-child(3),
+	& > :nth-child(4) {
+		grid-column:	span 1;
 	}
 }
 
-/* Niega el width: 100% y padding de input para el checkbox del checkout */
-#input1 {
-	accent-color:	var(--rojo);
-	cursor:			pointer;
-	height:			16px;
-	margin-top:		3px;
-	padding:		0;
-	width:			16px;
-}
-
-/* Input numérico de cantidad en ficha de producto */
-#input2 {
-	min-height:	46px;
-	padding:	8px;
-	text-align:	center;
-	width:		72px;
-}
-
-#label1 {
-	font-weight:	400;
+#form2 {
+	gap:			16px;
 }
 
 #main1 {
-	max-width:		1104px;
-}
-
-/* Precio en ficha de producto */
-#p1 {
-	color:			var(--negro);
-	font-size:		1.5rem;
-	line-height:	1.4;
-	& small {
-		color:			var(--negro2);
-		font-size:		0.875rem;
-		font-weight:	400;
-	}
+	max-width:		1200px;
+	padding:		0 48px;
 }
 
 #section1 {
@@ -700,35 +678,4 @@ div[data-carrusel="1"] {
 	height:				100px;
 	width:				100%;
 	background-color:	var(--blanco6);
-}
-
-/* Grid principal del checkout: 2 columnas en escritorio y 1 en móvil */
-#section3 {
-	align-items:			start;
-	display:				grid;
-	gap:					48px;
-	grid-template-columns:	5fr 4fr;
-	width:					100%;
-	@media (max-width: 921px) {
-		gap:					32px;
-		grid-template-columns:	1fr;
-	}
-}
-
-/* Grid principal de ficha de producto + sincronización CSS de carrusel */
-#section4 {
-	align-items:	start;
-	width:			100%;
-	&:has(#div5 label:nth-child(1) input:checked) div[data-carrusel="1"] img:nth-child(1),
-	&:has(#div5 label:nth-child(2) input:checked) div[data-carrusel="1"] img:nth-child(2),
-	&:has(#div5 label:nth-child(3) input:checked) div[data-carrusel="1"] img:nth-child(3),
-	&:has(#div5 label:nth-child(4) input:checked) div[data-carrusel="1"] img:nth-child(4),
-	&:has(#div5 label:nth-child(5) input:checked) div[data-carrusel="1"] img:nth-child(5),
-	&:has(#div5 label:nth-child(6) input:checked) div[data-carrusel="1"] img:nth-child(6) {
-		display:	block;
-	}
-	@media (max-width: 921px) {
-		gap:					24px;
-		grid-template-columns:	1fr;
-	}
 }

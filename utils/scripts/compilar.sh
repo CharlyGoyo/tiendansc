@@ -2,7 +2,7 @@
 
 v=
 
-while getopts "bBhin:v" opt; do
+while getopts "hv" opt; do
 	case "$opt" in 
 		h)
 			printf "Compila todo el html de /pages y /template* a /output
