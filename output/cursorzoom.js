@@ -22,12 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 
+		contenedor.addEventListener('mouseenter', () => {
+			contenedor.style.scrollSnapType = 'none';
+		});
+
 		contenedor.addEventListener('mouseleave', () => {
 			// Restaurar todas las imágenes al salir del contenedor
 			contenedor.querySelectorAll('img').forEach(img => {
 				img.style.transform = 'scale(1)';
 				img.style.transformOrigin = 'center center';
 			});
+			contenedor.style.scrollSnapType = ''; 
 		});
 	});
 });

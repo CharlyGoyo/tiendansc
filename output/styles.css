@@ -391,9 +391,10 @@ tr {
 }
 
 .div2 {
-	display:				flex;
-	flex-direction:			column;
-	gap:					16px;
+	display:		flex;
+	flex-direction:	column;
+	gap:			16px;
+	overflow:		hidden;
 }
 
 .div3 {
@@ -407,6 +408,7 @@ tr {
 	overflow:			hidden;
 	scroll-behavior:	smooth;
 	scroll-snap-type:	x mandatory;
+	/*scroll-snap-type:	none;*/
 	scrollbar-width: 	none;
 	/* galeria.js: */
 	transition:			height 0.3s ease;
