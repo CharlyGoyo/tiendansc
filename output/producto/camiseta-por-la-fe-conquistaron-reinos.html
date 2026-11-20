@@ -66,38 +66,42 @@
 				<!--enlace.insertAdjacentText('afterbegin', 'Texto antes ');-->
 			</a></p>
 		</nav>
-<main class="main1"
-	<section>
-		<button data-galeria="1">🔍</button>
+<script src="/galeria.js"></script>
+<script src="/carrusel.js"></script>
+<script src="/cursorzoom.js"></script>
+<main class="main1">
+	<section class="section2">
+		<div class="div2" data-carrusel-container="altura_dinamica">
+			<button class="button3" type="button" data-galeria="1" aria-label="Ver galería a pantalla completa">🔍</button>
+			<div data-galeria-set="1" data-carrusel-wrapper data-cursor-zoom="0" class="div3">
+				<img class="img1" src="/pages-content/uploads/2026/06/Sorribas-2026-194-scaled.jpg" alt="Camiseta Por la fe conquistaron reinos" fetchpriority="high">
+				<img class="img1" src="/pages-content/uploads/2026/06/camiseta-MARRON_02-scaled.jpg" alt="Camiseta Por la fe conquistaron reinos - Imagen 2" loading="lazy">
+				<img class="img1" src="/pages-content/uploads/2026/06/camiseta-MARRON_01-scaled.jpg" alt="Camiseta Por la fe conquistaron reinos - Imagen 3" loading="lazy">
+			</div>
 
-		<div data-carrusel="1">
-			<img src="/pages-content/uploads/2026/06/Sorribas-2026-194-600x400.jpg" data-galeria-img="/pages-content/uploads/2026/06/Sorribas-2026-194-scaled.jpg" alt="Camiseta Por la fe conquistaron reinos">
-			<img src="/pages-content/uploads/2026/06/camiseta-MARRON_02-600x400.jpg" data-galeria-img="/pages-content/uploads/2026/06/camiseta-MARRON_02-scaled.jpg" alt="Camiseta Por la fe conquistaron reinos - Imagen 2">
-			<img src="/pages-content/uploads/2026/06/camiseta-MARRON_01-600x400.jpg" data-galeria-img="/pages-content/uploads/2026/06/camiseta-MARRON_01-scaled.jpg" alt="Camiseta Por la fe conquistaron reinos - Imagen 3">
+			<div class="div4">
+				<label class="label2">
+					<input class="input5" type="radio" name="carrusel" checked data-carrusel-selector data-galeria="1">
+					<img class="img2" src="/pages-content/uploads/2026/06/Sorribas-2026-194-100x100.jpg" alt="Camiseta Por la fe conquistaron reinos">
+				</label>
+				<label class="label2">
+					<input class="input5" type="radio" name="carrusel" data-carrusel-selector data-galeria="1">
+					<img class="img2" src="/pages-content/uploads/2026/06/camiseta-MARRON_02-100x100.jpg" alt="Camiseta Por la fe conquistaron reinos - Imagen 2">
+				</label>
+				<label class="label2">
+					<input class="input5" type="radio" name="carrusel" data-carrusel-selector data-galeria="1">
+					<img class="img2" src="/pages-content/uploads/2026/06/camiseta-MARRON_01-100x100.jpg" alt="Camiseta Por la fe conquistaron reinos - Imagen 3">
+				</label>
+			</div>
 		</div>
 
-		<div>
-			<label data-carrusel="1">
-				<input type="radio" name="carrusel" checked>
-				<img src="/pages-content/uploads/2026/06/Sorribas-2026-194-100x100.jpg" alt="Camiseta Por la fe conquistaron reinos">
-			</label>
-			<label data-carrusel="1">
-				<input type="radio" name="carrusel">
-				<img src="/pages-content/uploads/2026/06/camiseta-MARRON_02-100x100.jpg" alt="Camiseta Por la fe conquistaron reinos - Imagen 2">
-			</label>
-			<label data-carrusel="1">
-				<input type="radio" name="carrusel">
-				<img src="/pages-content/uploads/2026/06/camiseta-MARRON_01-100x100.jpg" alt="Camiseta Por la fe conquistaron reinos - Imagen 3">
-			</label>
-		</div>
-
-		<form action="">
-			<h4>Camiseta Ave Crux Spes Unica</h4>
-			<h3>16,00 € <small>IVA incluido</small></h3>
+		<form id="form2" action="" method="post">
+			<h4 class="h41">Camiseta Por la fe conquistaron reinos</h4>
+			<p class="p5"><b class="b1">16,00 €</b><small> IVA incluido</small></p>
 			<label>
 				<p><em class="em1">Talla</em></p>
-				<select name="talla">
-					<option>Elige una opción</option>
+				<select name="talla" required>
+					<option value="">Elige una opción</option>
 					<option value="S">S</option>
 					<option value="M">M</option>
 					<option value="L">L</option>
@@ -106,123 +110,126 @@
 					<option value="3XL">3XL</option>
 				</select>
 			</label>
-			<span>
-				<input type="number" min="0" max="30" name="cantidad">
-				<input type="submit" value="Añadir al carrito">
+			<hr>
+			<span class="span1">
+				<input class="input1" type="number" name="cantidad" value="1" min="1" max="30" step="1" aria-label="Cantidad de productos" inputmode="numeric">
+				<input class="input4" type="submit" value="Añadir al carrito" disabled>
 			</span>
 		</form>
 	</section>
 
-	<details name="1">
-		<summary><p>Descripción</p></summary>
-		<table>
-			<thead>
-				<tr>
-					<td>
-						<p>TABLA DE TALLAS</p>
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<p>S</p>
-					</td>
-					<td>
-						<p>[49cm/69cm]</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>M</p>
-					</td>
-					<td>
-						<p>[52cm/71cm]</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>L</p>
-					</td>
-					<td>
-						<p>[55cm/73cm]</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>XL</p>
-					</td>
-					<td>
-						<p>[58cm/75cm]</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>2XL</p>
-					</td>
-					<td>
-						<p>[62cm/77cm]</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>3XL</p>
-					</td>
-					<td>
-						<p>[66cm/79cm]</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</details>
+	<div class="div5">
+		<details class="details1" name="1" open style="left: 0">
+			<summary class="summary1">Descripción</summary>
+			<table>
+				<thead>
+					<tr>
+						<th colspan="2">
+							<p>TABLA DE TALLAS</p>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="td1">
+							<p>S</p>
+						</td>
+						<td>
+							<p>[49cm/69cm]</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<p>M</p>
+						</td>
+						<td>
+							<p>[52cm/71cm]</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<p>L</p>
+						</td>
+						<td>
+							<p>[55cm/73cm]</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<p>XL</p>
+						</td>
+						<td>
+							<p>[58cm/75cm]</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<p>2XL</p>
+						</td>
+						<td>
+							<p>[62cm/77cm]</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<p>3XL</p>
+						</td>
+						<td>
+							<p>[66cm/79cm]</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</details>
 
-	<details name="1">
-		<summary><p>Información adicional</p></summary>
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<p><em class="em1">Peso</em></p>
-					</td>
-					<td>
-						<p>N/D</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p><em class="em1">Color</em></p>
-					</td>
-					<td>
-						<p>Marrón</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p><em class="em1">Material</em></p>
-					</td>
-					<td>
-						<p>Algodón 100%</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p><em class="em1">Gramaje</em></p>
-					</td>
-					<td>
-						<p>165 g/m²</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p><em class="em1">Talla</em></p>
-					</td>
-					<td>
-						<p>S, M, L, XL, 2XL, 3XL</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</details>
+		<details class="details1" name="1">
+			<summary class="summary1" style="left: 120px">Información adicional</summary>
+			<table>
+				<tbody>
+					<tr>
+						<td class="td1">
+							<p><em class="em1">Peso</em></p>
+						</td>
+						<td>
+							<p>N/D</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<p><em class="em1">Color</em></p>
+						</td>
+						<td>
+							<p>Marrón</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<p><em class="em1">Material</em></p>
+						</td>
+						<td>
+							<p>Algodón 100%</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<p><em class="em1">Gramaje</em></p>
+						</td>
+						<td>
+							<p>165 g/m²</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<p><em class="em1">Talla</em></p>
+						</td>
+						<td>
+							<p>S, M, L, XL, 2XL, 3XL</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</details>
+	</div>
 </main>
 
 		<footer>
