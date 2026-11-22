@@ -445,6 +445,13 @@ tr {
 
 }
 
+.h11 {
+	font-size:		2rem;
+	font-weight:	600;
+	line-height:	2.4rem;
+	text-align:		left;
+}
+
 .h41 {
 	font-size:		1.25rem;
 	line-height:	1.5rem;
@@ -559,6 +566,12 @@ tr {
 	line-height:	2.475rem;
 }
 
+.p6 {
+	@media (max-width:	550px) {
+		font-size:	0.8rem;
+	}
+}
+
 .section1 {
 	flex-direction:		column;
 	gap:				16px;
@@ -613,8 +626,76 @@ tr {
 	border:	solid 1px var(--gris2);
 }
 
+.table1 {
+/*gemineada gordisima pero tengo sueño*/
+	@media (max-width: 768px) {
+		border:		solid 1px var(--gris2);
+		display:	block;
+		& thead {
+			display:	none;
+		}
+		& tbody,
+		& tr {
+			display:	block;
+			width:		100%;
+		}
+		& tr {
+			border-width:	0 0 1px 0;
+		}
+		& td {
+			align-items:		center;
+			border-bottom:		solid 1px var(--gris2);
+			display:			flex;
+			justify-content:	space-between;
+			gap:				16px;
+			&:last-child {
+				border-bottom:	none;
+			}
+			&[data-label]:not([data-label=""])::before {
+				color:			var(--negro);
+				content:		attr(data-label);
+				flex-shrink:	0;
+				font-family:	'Montserrat', sans-serif;
+				font-size:		1rem;
+				font-weight:	500;
+			}
+			/* Botón de eliminar alineado a la derecha */
+			&[data-label=""] > button {
+				margin-left:	auto;
+			}
+			/* Imagen centrada ocupando el ancho */
+			&:has(> img) {
+				justify-content:	center;
+			}
+			& > img {
+				max-height:	120px;
+				object-fit:	contain;
+				width:		auto;
+			}
+		}
+		& tfoot {
+			background-color:	transparent;
+			& td {
+				border-bottom:		none;
+				justify-content:	center;
+				&:empty {
+					display:	none;
+				}
+			}
+		}
+	}
+}
+
+.tfoot1 {
+
+}
+
 .thead1 {
 	background-color:	transparent;
+}
+
+.thead2 {
+
 }
 
 .tr1 {
@@ -655,10 +736,22 @@ tr {
 	& > :nth-child(4) {
 		grid-column:	span 1;
 	}
+	@media (max-width:	760px) {
+		& > :nth-child(3),
+		& > :nth-child(4) {
+			grid-column:	span 2;
+		}
+	}
 }
 
 #form2 {
 	gap:			16px;
+}
+
+#img1 {
+	@media (max-width:	550px) {
+		width:	120px;
+	}
 }
 
 #main1 {
@@ -672,6 +765,9 @@ tr {
 	grid-template-columns:	1fr 1fr;
 	grid-auto-rows: 		500px;
 	width:					100%;
+	@media (max-width:	760px) {
+		grid-template-columns:	1fr;
+	}
 }
 
 #section2 {
