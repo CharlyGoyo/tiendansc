@@ -1,0 +1,7 @@
+compatibility_date = "2026-11-07"
+name = "tiendansc"
+pages_build_output_dir = "output"
+
+ [[kv_namespaces]]
+binding = "existencias"
+id = "456802a3ebfe4dc98aa242fc117a1b81"

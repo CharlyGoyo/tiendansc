@@ -4,9 +4,12 @@
 	const STORAGE_KEY = "nsc_carrito_v1";
 	const MAX_QTY = 10;
 	const MAX_HISTORY = 10;
+	const SHIPPING_EUR = 5;
 	const STOCK_ENDPOINT = "/hayexistencias";
+	const MOBILE_NAV_QUERY = "(max-width: 499.98px)";
+	const VAT_RATE = 0.21;
 
-	// Normaliza nombres: respeta el texto de index.html y reemplaza æ/Æ por ae/Ae
+	// Normaliza nombres: respeta el texto de index.html, reemplaza æ por ae y quita comas
 	const normalizeProductName = (rawName) =>
 		String(rawName || "")
 			.replace(/æ/g, "ae")
@@ -78,11 +81,19 @@
 		items.reduce((acc, item) => acc + item.price * item.qty, 0);
 
 	// Actualiza el importe total en el navbar a la derecha del icono del carrito
+	// (oculto/sin insertar cuando el ancho es menor que 500px)
 	const updateNavbarTotal = (items = loadCart()) => {
 		const cartLink = document.querySelector('nav a[href="/carrito"], nav a[href="/carrito.html"]');
 		if (!cartLink) return;
 
+		const isSmallScreen = window.matchMedia(MOBILE_NAV_QUERY).matches;
 		let badge = cartLink.querySelector("[data-carrito-navbar-total]");
+
+		if (isSmallScreen) {
+			if (badge) badge.remove();
+			return;
+		}
+
 		if (!badge) {
 			badge = document.createElement("span");
 			badge.setAttribute("data-carrito-navbar-total", "1");
@@ -116,7 +127,6 @@
 			qtyInput.setAttribute("min", "1");
 		}
 
-		// Mensaje de existencias justo debajo del selector de tallas
 		let stockMsg = null;
 		if (sizeSelect) {
 			stockMsg = document.createElement("p");
@@ -127,7 +137,7 @@
 			sizeSelect.insertAdjacentElement("afterend", stockMsg);
 		}
 
-		let stockData = null; // true/false o mapa { [nombreProducto]: boolean }
+		let stockData = null;
 		let stockLoaded = false;
 
 		const getSelectedVariantName = () => {
@@ -180,10 +190,10 @@
 			const available = isVariantAvailable();
 			if (stockMsg) {
 				if (available) {
-					stockMsg.textContent = "hay existencias";
+					stockMsg.textContent = "Hay existencias.";
 					stockMsg.style.color = "green";
 				} else {
-					stockMsg.textContent = "no hay existencias";
+					stockMsg.textContent = "No hay existencias.";
 					stockMsg.style.color = "red";
 				}
 			}
@@ -192,7 +202,6 @@
 			}
 		};
 
-		// POST a /hayexistencias al cargar la página de producto
 		const sizesList = sizeSelect
 			? Array.from(sizeSelect.options)
 					.map((opt) => String(opt.value || "").trim())
@@ -208,13 +217,17 @@
 				variantes: sizesList
 			})
 		})
-			.then((res) => res.json())
+			.then((res) => {
+				if (!res.ok) throw new Error(`HTTP ${res.status}`);
+				return res.json();
+			})
 			.then((data) => {
 				stockData = data;
 				stockLoaded = true;
 				refreshStockUI();
 			})
-			.catch(() => {
+			.catch((err) => {
+				console.error("Error consultando /hayexistencias:", err);
 				stockData = false;
 				stockLoaded = true;
 				refreshStockUI();
@@ -279,8 +292,9 @@
 	const initCartPage = () => {
 		const path = window.location.pathname.replace(/\/+$/, "");
 		const isCartPath = path === "/carrito" || path.endsWith("/carrito.html");
+		if (!isCartPath) return;
+
 		const table = document.querySelector("main table");
-		if (!isCartPath && !table) return;
 		if (!table) return;
 
 		const tbody = table.querySelector("tbody") || table;
@@ -290,7 +304,6 @@
 		if (!templateRow) return;
 
 		const rowTemplateClone = templateRow.cloneNode(true);
-		// Elimina filas de plantilla iniciales del tbody
 		Array.from(tbody.querySelectorAll("tr")).forEach((tr) => tr.remove());
 
 		const tfoot = table.querySelector("tfoot");
@@ -298,10 +311,9 @@
 		const undoBtn = buttons.find((b) => /deshacer/i.test(b.textContent || "")) || buttons[0] || null;
 		const redoBtn = buttons.find((b) => /rehacer/i.test(b.textContent || "")) || buttons[1] || null;
 
-		const totalHeading = document.querySelector("main h4");
-		const totalSection = totalHeading ? totalHeading.closest("section") : null;
-		let totalAmountEl = totalSection
-			? totalSection.querySelector("[data-carrito-subtotal-display]")
+		const totalHeading = document.querySelector("main .section1 h4");
+		let totalAmountEl = totalHeading
+			? totalHeading.querySelector("[data-carrito-subtotal-display]")
 			: null;
 		if (totalHeading && !totalAmountEl) {
 			totalAmountEl = document.createElement("span");
@@ -310,7 +322,6 @@
 			totalHeading.appendChild(totalAmountEl);
 		}
 
-		// Historial en memoria (solo mientras dure esta visita en /carrito)
 		const history = [loadCart()];
 		let historyIndex = 0;
 
@@ -322,7 +333,6 @@
 		const commitState = (nextItems, recordHistory = true) => {
 			const saved = saveCart(nextItems);
 			if (recordHistory) {
-				// Corta ramas futuras si se había deshecho antes
 				history.splice(historyIndex + 1);
 				history.push(saved.map((it) => ({ ...it })));
 				if (history.length > MAX_HISTORY) {
@@ -354,7 +364,6 @@
 				const qtyInput = tr.querySelector('input[type="number"]');
 				const pEls = Array.from(tr.querySelectorAll("p"));
 
-				// Identifica celdas de precio y subtotal por orden o data-label
 				const priceTd =
 					tr.querySelector('td[data-label*="Precio"]') || tds[3] || null;
 				const subtotalTd =
@@ -439,10 +448,78 @@
 		syncHistoryButtons();
 	};
 
+	// --- PÁGINA DE FINALIZAR COMPRA (/finalizar-compra o finalizar-compra.html) ---
+	const initCheckoutSummary = () => {
+		const path = window.location.pathname.replace(/\/+$/, "");
+		const isCheckoutPath =
+			path === "/finalizar-compra" || path.endsWith("/finalizar-compra.html");
+		if (!isCheckoutPath) return;
+
+		const summaryBox = document.querySelector("#div1 table tbody");
+		if (!summaryBox) return;
+
+		const rows = Array.from(summaryBox.querySelectorAll("tr"));
+		if (rows.length < 4) return;
+
+		const itemTemplateRow = rows[0].cloneNode(true);
+		const subtotalRow = rows[rows.length - 3];
+		const shippingRow = rows[rows.length - 2];
+		const totalRow = rows[rows.length - 1];
+
+		rows.slice(0, rows.length - 3).forEach((tr) => tr.remove());
+
+		const items = loadCart();
+		const subtotal = getCartTotal(items);
+		const shipping = items.length > 0 ? SHIPPING_EUR : 0;
+		const total = subtotal + shipping;
+
+		items.forEach((item) => {
+			const tr = itemTemplateRow.cloneNode(true);
+			const tds = tr.querySelectorAll("td");
+			const nameP = tds[0] ? tds[0].querySelector("p") || tds[0] : null;
+			const lineSubP = tds[1] ? tds[1].querySelector("p") || tds[1] : null;
+
+			if (nameP) {
+				nameP.innerHTML = "";
+				nameP.appendChild(document.createTextNode(item.name));
+				nameP.appendChild(document.createElement("br"));
+				nameP.appendChild(document.createTextNode(`x${item.qty}`));
+			}
+			if (lineSubP) {
+				lineSubP.textContent = formatEur(item.price * item.qty);
+			}
+
+			summaryBox.insertBefore(tr, subtotalRow);
+		});
+
+		const subtotalValueEl = subtotalRow.querySelector("td:last-child p") || subtotalRow.querySelector("td:last-child");
+		if (subtotalValueEl) subtotalValueEl.textContent = formatEur(subtotal);
+
+		const shippingValueEl = shippingRow.querySelector("td:last-child em, td:last-child p") || shippingRow.querySelector("td:last-child");
+		if (shippingValueEl) {
+			shippingValueEl.textContent =
+				items.length > 0 ? `Estándar: ${formatEur(SHIPPING_EUR)}` : formatEur(0);
+		}
+
+		const vatIncluded = total - total / (1 + VAT_RATE);
+		const totalValueEl = totalRow.querySelector("td:last-child p") || totalRow.querySelector("td:last-child");
+		if (totalValueEl) {
+			totalValueEl.innerHTML = "";
+			totalValueEl.appendChild(document.createTextNode(`${formatEur(total)} `));
+			const small = document.createElement("small");
+			small.textContent = `(incluye ${formatEur(vatIncluded)} IVA)`;
+			totalValueEl.appendChild(small);
+		}
+	};
+
 	const init = () => {
 		updateNavbarTotal();
+		window.matchMedia(MOBILE_NAV_QUERY).addEventListener("change", () => {
+			updateNavbarTotal();
+		});
 		initProductPage();
 		initCartPage();
+		initCheckoutSummary();
 	};
 
 	if (document.readyState === "loading") {
