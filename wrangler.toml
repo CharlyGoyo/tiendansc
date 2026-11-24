@@ -1,7 +1,8 @@
-compatibility_date = "2026-11-07"
+compatibility_date = "2026-10-07"
 name = "tiendansc"
 pages_build_output_dir = "output"
 
- [[kv_namespaces]]
-binding = "existencias"
-id = "456802a3ebfe4dc98aa242fc117a1b81"
+[[d1_databases]]
+binding = "DB"
+database_name = "nsc"
+database_id = "940b33d6-433c-44b0-a90d-3eb7a1ad1e09"

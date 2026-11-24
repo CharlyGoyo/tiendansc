@@ -5,7 +5,7 @@
 	const MAX_QTY = 10;
 	const MAX_HISTORY = 10;
 	const SHIPPING_EUR = 5;
-	const STOCK_ENDPOINT = "/hayexistencias";
+	const STOCK_ENDPOINT = "/stock";
 	const MOBILE_NAV_QUERY = "(max-width: 499.98px)";
 	const VAT_RATE = 0.21;
 

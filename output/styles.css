@@ -537,6 +537,7 @@ tr {
 	&:hover {
 		background-color:	var(--amarillo);
 		color:				var(--negro);
+		cursor:				pointer;
 	}
 }
 
