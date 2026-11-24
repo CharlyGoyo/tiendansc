@@ -3,16 +3,19 @@
 
 	const STORAGE_KEY = "nsc_carrito_v1";
 
-	const hasCartItems = () => {
+	const getCartItems = () => {
 		try {
 			const raw = localStorage.getItem(STORAGE_KEY);
-			if (!raw) return false;
+			if (!raw) return [];
 			const parsed = JSON.parse(raw);
-			return Array.isArray(parsed) && parsed.some((it) => (parseInt(it.qty, 10) || 0) > 0);
+			if (!Array.isArray(parsed)) return [];
+			return parsed.filter((it) => (parseInt(it.qty, 10) || 0) > 0);
 		} catch (_) {
-			return false;
+			return [];
 		}
 	};
+
+	const hasCartItems = () => getCartItems().length > 0;
 
 	const init = () => {
 		const form = document.querySelector("#form1");
@@ -48,11 +51,42 @@
 			}
 		});
 
-		form.addEventListener("submit", (e) => {
+		form.addEventListener("submit", async (e) => {
+			e.preventDefault();
 			validateFields();
 			if (submitBtn.disabled) {
-				e.preventDefault();
 				form.reportValidity();
+				return;
+			}
+
+			submitBtn.disabled = true;
+
+			const fields = Object.fromEntries(new FormData(form).entries());
+			const payload = {
+				...fields,
+				items: getCartItems()
+			};
+
+			try {
+				const res = await fetch(form.getAttribute("action") || "/checkout", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(payload)
+				});
+
+				if (!res.ok) {
+					throw new Error(`HTTP ${res.status}`);
+				}
+
+				const data = await res.json();
+				if (data && data.url) {
+					window.location.href = data.url;
+					return;
+				}
+				throw new Error("Respuesta sin URL de Stripe");
+			} catch (err) {
+				console.error("[checkout]", err);
+				validateFields();
 			}
 		});
 

@@ -4,12 +4,7 @@ export async function onRequestGet(context) {
       .prepare("SELECT id, nombre, precio, url, imagen, existencias FROM stock")
       .all();
 
-    const data = results.map(({ existencias, ...rest }) => ({
-      ...rest,
-      hay_existencias: existencias > 0,
-    }));
-
-    return Response.json(data);
+    return Response.json(results);
   } catch (err) {
     return Response.json(
       { error: "Error consultando stock", detalle: err.message },
