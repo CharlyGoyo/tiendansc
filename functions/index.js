@@ -20012,6 +20012,8 @@ var stripe_esm_worker_default = Stripe;
 
 // intent.js
 var SHIPPING_EUR = 5;
+var CALENDAR_ID = 33;
+var FREE_SHIPPING_QTY = 8;
 async function onRequestPost({ request, env }) {
   const body = await request.json();
   const rawItems = Array.isArray(body?.items) ? body.items : [];
@@ -20058,7 +20060,9 @@ async function onRequestPost({ request, env }) {
       { status: 429 }
     );
   }
-  const amountCents = itemsCents + SHIPPING_EUR * 100;
+  const calendarQty = reserved.filter((r) => r.id === CALENDAR_ID).reduce((acc, r) => acc + r.qty, 0);
+  const shippingEur = calendarQty >= FREE_SHIPPING_QTY ? 0 : SHIPPING_EUR;
+  const amountCents = itemsCents + shippingEur * 100;
   const stripe = new stripe_esm_worker_default(env.STRIPE_API_KEY);
   try {
     const required = ["nombre", "apellidos", "direccion1", "postal", "poblacion", "provincia", "telefono", "correo"];
@@ -20210,7 +20214,7 @@ ${csvRow}
 }
 __name(onRequestPost2, "onRequestPost");
 
-// ../.wrangler/tmp/pages-hiT9LR/functionsRoutes-0.8702166454445944.mjs
+// ../.wrangler/tmp/pages-e5bK3k/functionsRoutes-0.6238578032950826.mjs
 var routes = [
   {
     routePath: "/intent",

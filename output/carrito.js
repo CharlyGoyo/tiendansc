@@ -8,7 +8,7 @@
 	const STOCK_ENDPOINT = "/stock";
 	const MOBILE_NAV_QUERY = "(max-width: 499.98px)";
 	const VAT_RATE = 0.21;
-	const CALENDAR_ID = 65;
+	const CALENDAR_ID = 33;
 	const FREE_SHIPPING_QTY = 8;
 
 	let stockCatalog = null; // Array de objetos de /stock: { id, nombre, precio, url, imagen, existencias }
@@ -474,6 +474,8 @@
 				const priceP = priceTd ? priceTd.querySelector("p") || priceTd : pEls[1];
 				const subtotalP = subtotalTd ? subtotalTd.querySelector("p") || subtotalTd : pEls[2];
 
+				const envioEl = document.querySelector("[data-envio]");
+
 				if (imgEl) {
 					imgEl.src = item.imagen || "";
 					imgEl.alt = item.nombre;
@@ -506,6 +508,13 @@
 							.filter((it) => it.qty > 0);
 						commitState(updated, true);
 					});
+					if (envioEl) {
+						const calQty = items
+							.filter((it) => Number(it.id) === CALENDAR_ID)
+							.reduce((acc, it) => acc + (parseInt(it.qty, 10) || 0), 0);
+						envioEl.textContent = calQty >= FREE_SHIPPING_QTY ? "Envío gratuito" : "Envío: 5€";
+					}
+
 				}
 
 				if (subtotalP) {
@@ -518,13 +527,6 @@
 						const updated = current.filter((it) => String(it.id) !== String(item.id));
 						commitState(updated, true);
 					});
-				}
-
-				if (envioEl) {
-					const calQty = items
-						.filter((it) => Number(it.id) === CALENDAR_ID)
-						.reduce((acc, it) => acc + (parseInt(it.qty, 10) || 0), 0);
-					envioEl.textContent = calQty >= FREE_SHIPPING_QTY ? "envío gratuito" : defaultEnvioText;
 				}
 
 				tbody.appendChild(tr);
@@ -579,9 +581,6 @@
 		const shippingRow = rows[rows.length - 2];
 		const totalRow = rows[rows.length - 1];
 		const staticTailRows = [subtotalRow, shippingRow, totalRow];
-
-		const envioEl = document.querySelector("[data-envio]");
-		const defaultEnvioText = envioEl ? envioEl.textContent : "";
 
 		const renderSummary = () => {
 			Array.from(summaryBox.querySelectorAll("tr")).forEach((tr) => {

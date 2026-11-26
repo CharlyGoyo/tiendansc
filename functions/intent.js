@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 
 const SHIPPING_EUR = 5;
-const CALENDAR_ID = 65;
+const CALENDAR_ID = 33;
 const FREE_SHIPPING_QTY = 8;
 
 export async function onRequestPost({ request, env }) {
