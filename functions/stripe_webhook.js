@@ -74,7 +74,7 @@ export async function onRequestPost({ request, env }) {
 	const boundary = "----=_Part_NSC_E";
 	const msgId = `<${ref}.${Date.now()}@nsc-e.local>`;
 	const rawMime = [
-		`From: <carlosnacherabeledo@imprentanacher.es>`,
+		`From: <pedidos@imprentanacher.es>`,
 		`To: <carlosnacherabeledo@proton.me>`,
 		`Subject: Nuevo pedido - ${ref}`,
 		`Date: ${new Date().toUTCString()}`,

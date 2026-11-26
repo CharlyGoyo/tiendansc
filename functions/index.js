@@ -20178,7 +20178,7 @@ ${csvRow}
   const boundary = "----=_Part_NSC_E";
   const msgId = `<${ref}.${Date.now()}@nsc-e.local>`;
   const rawMime = [
-    `From: <carlosnacherabeledo@imprentanacher.es>`,
+    `From: <pedidos@imprentanacher.es>`,
     `To: <carlosnacherabeledo@proton.me>`,
     `Subject: Nuevo pedido - ${ref}`,
     `Date: ${(/* @__PURE__ */ new Date()).toUTCString()}`,
@@ -20210,7 +20210,7 @@ ${csvRow}
 }
 __name(onRequestPost2, "onRequestPost");
 
-// ../.wrangler/tmp/pages-56XzI4/functionsRoutes-0.7088724281415355.mjs
+// ../.wrangler/tmp/pages-hiT9LR/functionsRoutes-0.8702166454445944.mjs
 var routes = [
   {
     routePath: "/intent",
