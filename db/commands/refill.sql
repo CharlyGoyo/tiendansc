@@ -47,3 +47,7 @@ INSERT INTO stock (nombre, precio, url, imagen, existencias) VALUES
 ('Chaqueta polar NSC-E L', 30.00, '/producto/chaqueta-polar-nsc-e', '/pages-content/uploads/2025/07/CAMISETAS-12-100x100.jpg', 0),
 ('Chaqueta polar NSC-E XL', 30.00, '/producto/chaqueta-polar-nsc-e', '/pages-content/uploads/2025/07/CAMISETAS-12-100x100.jpg', 8),
 ('Chaqueta polar NSC-E 2XL', 30.00, '/producto/chaqueta-polar-nsc-e', '/pages-content/uploads/2025/07/CAMISETAS-12-100x100.jpg', 5);
+
+-- Calendario 2026 (0 unidades)
+INSERT INTO stock (nombre, precio, url, imagen, existencias) VALUES
+('Calendario 2026', 8.00, '/producto/calendario-2026', '/pages-content/uploads/2025/12/folleto-abierto-en-blanco-copia-100x100.jpg', 0);
