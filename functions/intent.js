@@ -1,6 +1,8 @@
 import Stripe from "stripe";
 
 const SHIPPING_EUR = 5;
+const CALENDAR_ID = 65;
+const FREE_SHIPPING_QTY = 8;
 
 export async function onRequestPost({ request, env }) {
 	const body = await request.json();
@@ -70,7 +72,11 @@ export async function onRequestPost({ request, env }) {
 		);
 	}
 
-	const amountCents = itemsCents + SHIPPING_EUR * 100;
+	const calendarQty = reserved
+		.filter((r) => r.id === CALENDAR_ID)
+		.reduce((acc, r) => acc + r.qty, 0);
+	const shippingEur = calendarQty >= FREE_SHIPPING_QTY ? 0 : SHIPPING_EUR;
+	const amountCents = itemsCents + shippingEur * 100;
 	const stripe = new Stripe(env.STRIPE_API_KEY);
 
 	try {

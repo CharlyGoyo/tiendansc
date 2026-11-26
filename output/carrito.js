@@ -8,6 +8,8 @@
 	const STOCK_ENDPOINT = "/stock";
 	const MOBILE_NAV_QUERY = "(max-width: 499.98px)";
 	const VAT_RATE = 0.21;
+	const CALENDAR_ID = 65;
+	const FREE_SHIPPING_QTY = 8;
 
 	let stockCatalog = null; // Array de objetos de /stock: { id, nombre, precio, url, imagen, existencias }
 	let stockUnavailableFallback = false; // true si falló la petición (distinto de 429)
@@ -518,6 +520,13 @@
 					});
 				}
 
+				if (envioEl) {
+					const calQty = items
+						.filter((it) => Number(it.id) === CALENDAR_ID)
+						.reduce((acc, it) => acc + (parseInt(it.qty, 10) || 0), 0);
+					envioEl.textContent = calQty >= FREE_SHIPPING_QTY ? "envío gratuito" : defaultEnvioText;
+				}
+
 				tbody.appendChild(tr);
 			});
 
@@ -571,6 +580,9 @@
 		const totalRow = rows[rows.length - 1];
 		const staticTailRows = [subtotalRow, shippingRow, totalRow];
 
+		const envioEl = document.querySelector("[data-envio]");
+		const defaultEnvioText = envioEl ? envioEl.textContent : "";
+
 		const renderSummary = () => {
 			Array.from(summaryBox.querySelectorAll("tr")).forEach((tr) => {
 				if (!staticTailRows.includes(tr)) tr.remove();
@@ -578,7 +590,11 @@
 
 			const items = loadCart();
 			const subtotal = getCartTotal(items);
-			const shipping = items.length > 0 ? SHIPPING_EUR : 0;
+			const calendarQty = items
+				.filter((it) => Number(it.id) === CALENDAR_ID)
+				.reduce((acc, it) => acc + (parseInt(it.qty, 10) || 0), 0);
+			const freeShipping = calendarQty >= FREE_SHIPPING_QTY;
+			const shipping = items.length > 0 ? (freeShipping ? 0 : SHIPPING_EUR) : 0;
 			const total = subtotal + shipping;
 
 			items.forEach((item) => {
@@ -609,7 +625,11 @@
 				shippingRow.querySelector("td:last-child");
 			if (shippingValueEl) {
 				shippingValueEl.textContent =
-					items.length > 0 ? `Estándar: ${formatEur(SHIPPING_EUR)}` : formatEur(0);
+					items.length > 0
+					? freeShipping
+					? "Envío gratuito"
+					: `Estándar: ${formatEur(SHIPPING_EUR)}`
+					: formatEur(0);
 			}
 
 			const vatIncluded = total - total / (1 + VAT_RATE);
