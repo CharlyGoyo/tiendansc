@@ -20075,6 +20075,7 @@ async function onRequestPost({ request, env }) {
       automatic_payment_methods: { enabled: true },
       receipt_email: body.correo.trim(),
       metadata: {
+        tipo: "tienda",
         items: JSON.stringify(reserved),
         nombre: body.nombre.trim(),
         apellidos: body.apellidos.trim(),
@@ -20129,6 +20130,10 @@ async function onRequestPost2({ request, env }) {
     void 0,
     stripe_esm_worker_default.createSubtleCryptoProvider()
   );
+  const tipo = session.metadata.tipo;
+  if (tipo !== "tienda") {
+    return Response.json({ received: true });
+  }
   if (event.type === "payment_intent.payment_failed" || event.type === "payment_intent.canceled") {
     const reserved2 = JSON.parse(event.data.object.metadata?.items || "[]");
     for (const r of reserved2) {
@@ -20214,7 +20219,7 @@ ${csvRow}
 }
 __name(onRequestPost2, "onRequestPost");
 
-// ../.wrangler/tmp/pages-e5bK3k/functionsRoutes-0.6238578032950826.mjs
+// ../.wrangler/tmp/pages-dXSlrV/functionsRoutes-0.7023573494734674.mjs
 var routes = [
   {
     routePath: "/intent",

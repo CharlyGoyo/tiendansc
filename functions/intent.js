@@ -91,6 +91,7 @@ export async function onRequestPost({ request, env }) {
 			automatic_payment_methods: { enabled: true },
 			receipt_email: body.correo.trim(),
 			metadata: {
+				tipo: "tienda",
 				items: JSON.stringify(reserved),
 				nombre: body.nombre.trim(),
 				apellidos: body.apellidos.trim(),

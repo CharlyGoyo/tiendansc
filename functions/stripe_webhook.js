@@ -15,6 +15,10 @@ export async function onRequestPost({ request, env }) {
 		undefined,
 		Stripe.createSubtleCryptoProvider()
 	);
+	const tipo = session.metadata.tipo;
+	if (tipo !== "tienda"){
+		return Response.json({ received: true });
+	}
 
 	if (event.type === "payment_intent.payment_failed" || event.type === "payment_intent.canceled") {
 		const reserved = JSON.parse(event.data.object.metadata?.items || "[]");
