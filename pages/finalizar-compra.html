@@ -1,7 +1,8 @@
 <script src="/form_finalizar.js" defer></script>
 <main class="main1">
+	<script src="https://js.stripe.com/v3/"></script>
 	<section class="section2">
-		<form id="form1" action="/checkout" method="post">
+		<form id="form1" action="/intent" method="post">
 			<h4 class="h42">Facturación y envío</h4>
 			<hr>
 			<label class="label1">
@@ -137,17 +138,15 @@
 					</tr>
 				</tbody>
 			</table>
+			<p>Tus datos personales se utilizarán para procesar tu pedido: <a class="a2" href="/politica-de-privacidad">Política de privacidad</a>.</p>
+			<label for="input1">
+				<p><input id="input1" type="checkbox" name="terminos" required>
+				He leído y estoy de acuerdo con los <a class="a2" href="/terminos">términos y condiciones</a> de la web <em class="em4">*</em></p>
+			</label>
 
-			<!-- Bloque legal y botón de envío fuera de <table> para cumplir HTML5 -->
-			<div class="div2">
-				<p>Tus datos personales se utilizarán para procesar tu pedido: <a class="a2" href="/politica-de-privacidad">Política de privacidad</a>.</p>
-					<label for="input1">
-						<p><input id="input1" type="checkbox" name="terminos" required>
-						He leído y estoy de acuerdo con los <a class="a2" href="/terminos">términos y condiciones</a> de la web <em class="em4">*</em></p>
-					</label>
-
-				<button id="button1" type="submit" form="form1">Realizar el pedido</button>
-			</div>
+			<p data-stripe-status></p>
+			<div id="payment-element"></div>
+			<button id="button1" type="submit" form="form1">Realizar el pedido</button>
 		</div>
 	</section>
 </main>

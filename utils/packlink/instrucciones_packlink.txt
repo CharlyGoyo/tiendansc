@@ -1,0 +1,21 @@
+	1- La tienda procesa el pago
+	2- Te llega un correo automático con los datos (productos pedidos, código postal, nombre, etc.)
+	3- Eliges un paquete y empaquetas los productos (asumo que Diana te ha dado los paquetes).
+	4- En packlink haces click en donde pone "Nuevo envío"
+	5- Metes los datos (peso, dimensiones, códigos postales) -- aquí puedes añadir más paquetes si quieres
+	6- Eliges un servicio de envío:
+		- Cada uno te ofrece un precio y unos plazos
+		- En algunos tendrás que imprimirte la etiqueta tú, en otros no.
+		- Algunos vienen a recogértelo a casa, otros tendrás que ir tú (te deja ver en el mapa).
+	7- Metes el resto de datos y pagas el envío.
+	8- Si hay que imprimir etiqueta, es probable que veas un estado "Generating labels...". Dura máximo 60 minutos.
+		- Te llegará un correo de packlink con la etiqueta en pdf:
+		- La imprimes y la pegas en un lado de la caja con cinta adhesiva.
+		- Asegúrate de no tapar el código de barras con la cinta.
+		- Si usas correos no hace falta imprimir la etiqueta: 
+		https://support.packlink.com/hc/es-es/articles/36545542186898-Correos-env%C3%ADos-sin-impresi%C3%B3n-de-etiqueta
+	9- Dejas el paquete donde te digan.
+De avisar al cliente cuando llega el paquete en principio me encargo yo.
+
+Cualquier duda me puedes preguntar o consultarlo aquí:
+https://support.packlink.com/hc/es-es/categories/360002437380-C%C3%B3mo-usar-Packlink

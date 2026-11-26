@@ -1,7 +1,7 @@
 (() => {
 	"use strict";
 
-	const STORAGE_KEY = "nsc_carrito_v1";
+	const STORAGE_KEY = "carrito";
 	const MAX_QTY = 10;
 	const MAX_HISTORY = 10;
 	const SHIPPING_EUR = 5;
@@ -9,7 +9,7 @@
 	const MOBILE_NAV_QUERY = "(max-width: 499.98px)";
 	const VAT_RATE = 0.21;
 
-	let stockCatalog = null; // Array de objetos de /stock o null si aún no cargado / rate limited
+	let stockCatalog = null; // Array de objetos de /stock: { id, nombre, precio, url, imagen, existencias }
 	let stockUnavailableFallback = false; // true si falló la petición (distinto de 429)
 	const stockListeners = new Set();
 
@@ -28,16 +28,23 @@
 		return Number.isFinite(num) && num >= 0 ? num : 0;
 	};
 
-	const clampQty = (val) => {
-		const n = parseInt(val, 10);
-		if (!Number.isFinite(n) || n < 0) return 0;
-		return Math.min(MAX_QTY, n);
+	const parseStockQty = (val) => {
+		const n = Number(val);
+		if (!Number.isFinite(n) || n <= 0) return 0;
+		return Math.floor(n);
 	};
 
-	// Estructura alineada con /stock: { id, nombre, precio, url, imagen, existencias, qty }
+	const clampQty = (val, maxAllowed = MAX_QTY) => {
+		const upper = Math.max(0, Math.min(MAX_QTY, parseStockQty(maxAllowed)));
+		const n = parseInt(val, 10);
+		if (!Number.isFinite(n) || n < 0) return 0;
+		return Math.min(upper, n);
+	};
+
 	const normalizeCartItem = (item) => {
 		if (!item || item.id === undefined || item.id === null || item.id === "") return null;
-		const qty = clampQty(item.qty);
+		const existencias = parseStockQty(item.existencias);
+		const qty = clampQty(item.qty, existencias > 0 ? existencias : MAX_QTY);
 		if (qty <= 0) return null;
 		return {
 			id: Number.isFinite(Number(item.id)) && String(item.id).trim() !== "" ? Number(item.id) : String(item.id),
@@ -45,7 +52,7 @@
 			precio: parsePrice(item.precio),
 			url: String(item.url || ""),
 			imagen: String(item.imagen || ""),
-			existencias: Number(item.existencias),
+			existencias,
 			qty
 		};
 	};
@@ -101,13 +108,18 @@
 		return stockCatalog.find((row) => String(row.id) === String(id)) || null;
 	};
 
-	const hasStockForId = (id) => {
-		if (stockUnavailableFallback) return false;
+	const getStockForId = (id) => {
+		if (stockUnavailableFallback) return 0;
 		const row = findStockItem(id);
-		return Boolean(row && row.hay_existencias);
+		return row ? parseStockQty(row.existencias) : 0;
 	};
 
-	// Elimina del carrito cualquier ítem sin existencias y sincroniza datos de /stock
+	const getMaxSelectableQty = (id) => {
+		if (stockUnavailableFallback || !Array.isArray(stockCatalog)) return 0;
+		return Math.min(MAX_QTY, getStockForId(id));
+	};
+
+	// Ajusta o elimina del carrito los ítems según el stock actual devuelto por /stock
 	const reconcileCartWithStock = () => {
 		if (!Array.isArray(stockCatalog) && !stockUnavailableFallback) return false;
 
@@ -120,7 +132,13 @@
 				return acc;
 			}
 			const row = findStockItem(item.id);
-			if (!row || !row.hay_existencias) {
+			const stockDisponible = row ? parseStockQty(row.existencias) : 0;
+			if (!row || stockDisponible <= 0) {
+				changed = true;
+				return acc;
+			}
+			const clampedQty = Math.min(item.qty, stockDisponible, MAX_QTY);
+			if (clampedQty <= 0) {
 				changed = true;
 				return acc;
 			}
@@ -130,14 +148,16 @@
 				precio: parsePrice(row.precio ?? item.precio),
 				url: row.url ?? item.url,
 				imagen: row.imagen ?? item.imagen,
-				hay_existencias: Boolean(row.hay_existencias)
+				existencias: stockDisponible,
+				qty: clampedQty
 			};
 			if (
 				synced.nombre !== item.nombre ||
 				synced.precio !== item.precio ||
 				synced.url !== item.url ||
 				synced.imagen !== item.imagen ||
-				synced.hay_existencias !== item.hay_existencias
+				synced.existencias !== item.existencias ||
+				synced.qty !== item.qty
 			) {
 				changed = true;
 			}
@@ -187,8 +207,9 @@
 		const submitBtn = form.querySelector('input[type="submit"], button[type="submit"]');
 
 		if (qtyInput) {
-			qtyInput.setAttribute("max", String(MAX_QTY));
-			qtyInput.setAttribute("min", "1");
+			qtyInput.setAttribute("min", "0");
+			qtyInput.setAttribute("max", "0");
+			qtyInput.value = "0";
 		}
 
 		let stockMsg = null;
@@ -217,18 +238,41 @@
 			return talla ? `${baseText} ${talla}`.trim() : baseText;
 		};
 
+		const syncQtyInputBounds = (maxQty) => {
+			if (!qtyInput) return;
+			const safeMax = Math.max(0, Math.min(MAX_QTY, parseStockQty(maxQty)));
+			qtyInput.setAttribute("min", "0");
+			qtyInput.setAttribute("max", String(safeMax));
+
+			if (safeMax <= 0) {
+				qtyInput.value = "0";
+				return;
+			}
+
+			const currentVal = parseInt(qtyInput.value, 10);
+			if (!Number.isFinite(currentVal) || currentVal < 1) {
+				qtyInput.value = "1";
+			} else if (currentVal > safeMax) {
+				qtyInput.value = String(safeMax);
+			}
+		};
+
 		const refreshStockUI = () => {
 			const prodId = getSelectedProductId();
 			const isReady = Array.isArray(stockCatalog) || stockUnavailableFallback;
 
 			if (!sizeSelect) {
-				const ok = isReady && hasStockForId(prodId);
+				const maxQty = isReady ? getMaxSelectableQty(prodId) : 0;
+				syncQtyInputBounds(maxQty);
+				const ok = maxQty > 0 && (parseInt(qtyInput?.value, 10) || 0) >= 1;
 				if (submitBtn) submitBtn.disabled = !ok;
 				return;
 			}
 
 			const talla = String(sizeSelect.value || "").trim();
 			if (!talla || !isReady) {
+				sizeSelect.setCustomValidity("");
+				syncQtyInputBounds(0);
 				if (stockMsg) {
 					stockMsg.textContent = "";
 					stockMsg.style.color = "";
@@ -237,8 +281,10 @@
 				return;
 			}
 
-			const available = hasStockForId(prodId);
+			const maxQty = getMaxSelectableQty(prodId);
+			const available = maxQty > 0;
 			sizeSelect.setCustomValidity(available ? "" : "No hay existencias.");
+			syncQtyInputBounds(maxQty);
 
 			if (stockMsg) {
 				if (available) {
@@ -249,7 +295,8 @@
 					stockMsg.style.color = "red";
 				}
 			}
-			if (submitBtn) submitBtn.disabled = !available;
+			const chosenQty = qtyInput ? parseInt(qtyInput.value, 10) || 0 : 1;
+			if (submitBtn) submitBtn.disabled = !(available && chosenQty >= 1);
 		};
 
 		if (sizeSelect) {
@@ -258,17 +305,52 @@
 
 		if (qtyInput) {
 			qtyInput.addEventListener("input", () => {
+				if (qtyInput.value === "") return;
+				const prodId = getSelectedProductId();
+				const maxQty = Array.isArray(stockCatalog) || stockUnavailableFallback
+					? getMaxSelectableQty(prodId)
+					: 0;
+				if (maxQty <= 0) {
+					qtyInput.value = "0";
+					if (submitBtn) submitBtn.disabled = true;
+					return;
+				}
 				let val = parseInt(qtyInput.value, 10);
-				if (!Number.isFinite(val) || val < 1) val = 1;
-				if (val > MAX_QTY) val = MAX_QTY;
+				if (!Number.isFinite(val) || val < 0) val = 0;
+				if (val > maxQty) val = maxQty;
 				qtyInput.value = String(val);
+				if (submitBtn) submitBtn.disabled = val < 1;
+			});
+
+			qtyInput.addEventListener("change", () => {
+				const prodId = getSelectedProductId();
+				const maxQty = Array.isArray(stockCatalog) || stockUnavailableFallback
+					? getMaxSelectableQty(prodId)
+					: 0;
+				if (maxQty <= 0) {
+					qtyInput.value = "0";
+					if (submitBtn) submitBtn.disabled = true;
+					return;
+				}
+				let val = parseInt(qtyInput.value, 10);
+				if (!Number.isFinite(val) || val < 0) val = 0;
+				if (val > maxQty) val = maxQty;
+				qtyInput.value = String(val);
+				if (submitBtn) submitBtn.disabled = val < 1;
 			});
 		}
 
 		form.addEventListener("submit", (e) => {
 			e.preventDefault();
 			const prodId = getSelectedProductId();
-			if (!prodId || !hasStockForId(prodId)) {
+			const maxQty = getMaxSelectableQty(prodId);
+			if (!prodId || maxQty <= 0) {
+				refreshStockUI();
+				return;
+			}
+
+			const addQty = qtyInput ? clampQty(qtyInput.value, maxQty) : 1;
+			if (addQty < 1) {
 				refreshStockUI();
 				return;
 			}
@@ -276,10 +358,6 @@
 			const stockRow = findStockItem(prodId);
 			const firstImg = document.querySelector("[data-carrusel-wrapper] img, .div3 img, .div2 img");
 			const fallbackImg = firstImg ? firstImg.getAttribute("src") || "" : "";
-
-			let addQty = qtyInput ? parseInt(qtyInput.value, 10) || 1 : 1;
-			if (addQty < 1) addQty = 1;
-			if (addQty > MAX_QTY) addQty = MAX_QTY;
 
 			const items = loadCart();
 			const existing = items.find((it) => String(it.id) === String(prodId));
@@ -290,17 +368,17 @@
 				precio: stockRow ? parsePrice(stockRow.precio) : 0,
 				url: stockRow && stockRow.url ? stockRow.url : window.location.pathname,
 				imagen: stockRow && stockRow.imagen ? stockRow.imagen : fallbackImg,
-				hay_existencias: true,
+				existencias: maxQty,
 				qty: addQty
 			};
 
 			if (existing) {
-				existing.qty = Math.min(MAX_QTY, existing.qty + addQty);
+				existing.qty = Math.min(maxQty, existing.qty + addQty);
 				existing.nombre = itemData.nombre;
 				existing.precio = itemData.precio;
 				if (itemData.imagen) existing.imagen = itemData.imagen;
 				if (itemData.url) existing.url = itemData.url;
-				existing.hay_existencias = true;
+				existing.existencias = maxQty;
 			} else {
 				items.push(itemData);
 			}
@@ -411,12 +489,15 @@
 				}
 
 				if (qtyInput) {
+					const maxItemQty = Array.isArray(stockCatalog)
+						? Math.min(MAX_QTY, getStockForId(item.id))
+						: Math.min(MAX_QTY, parseStockQty(item.existencias) || MAX_QTY);
 					qtyInput.min = "0";
-					qtyInput.max = String(MAX_QTY);
-					qtyInput.value = String(item.qty);
+					qtyInput.max = String(maxItemQty);
+					qtyInput.value = String(Math.min(item.qty, maxItemQty));
 
 					qtyInput.addEventListener("change", () => {
-						const newQty = clampQty(qtyInput.value);
+						const newQty = clampQty(qtyInput.value, maxItemQty);
 						const current = loadCart();
 						const updated = current
 							.map((it) => (String(it.id) === String(item.id) ? { ...it, qty: newQty } : it))

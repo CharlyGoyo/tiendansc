@@ -1,23 +1,57 @@
 (() => {
 	"use strict";
 
-	const STORAGE_KEY = "nsc_carrito_v1";
+	const STORAGE_KEY = "carrito";
+
+	const params = new URLSearchParams(window.location.search);
+
+	const stripe = Stripe("pk_test_51UEw8wCNOpaMFlfCDyRbkzqTLjgg93t5GI14zJokS57xxdRfAOoLvlGzX6afI1k7NMtMmsAWISQEqGs9nVcNzQp900m3hw8J6Y");
+	const elements = stripe.elements({
+		mode: "payment",
+		amount: 100,
+		currency: "eur"
+	});
+
+	const paymentElement = elements.create("payment", {
+		layout: {
+			type: "accordion",
+			defaultCollapsed: true,
+			radios: "always",
+			spacedAccordionItems: false
+		},
+		business: {
+			name: "NSC-E"
+		}
+	});
 
 	const getCartItems = () => {
 		try {
 			const raw = localStorage.getItem(STORAGE_KEY);
 			if (!raw) return [];
 			const parsed = JSON.parse(raw);
-			if (!Array.isArray(parsed)) return [];
-			return parsed.filter((it) => (parseInt(it.qty, 10) || 0) > 0);
+			return Array.isArray(parsed) ? parsed.filter((it) => (parseInt(it.qty, 10) || 0) > 0) : [];
 		} catch (_) {
 			return [];
 		}
 	};
 
-	const hasCartItems = () => getCartItems().length > 0;
+	const statusEl = document.querySelector("[data-stripe-status]");
+
+	const setStatus = (msg, type) => {
+		if (!msg) {
+			statusEl.textContent = "";
+			statusEl.hidden = true;
+			return;
+		}
+		statusEl.textContent = msg;
+		statusEl.style.color = type === "ok" ? "green" : "red";
+		statusEl.hidden = false;
+	};
 
 	const init = () => {
+		setStatus("");
+		paymentElement.mount("#payment-element");
+
 		const form = document.querySelector("#form1");
 		const submitBtn = document.querySelector("#button1");
 		if (!form || !submitBtn) return;
@@ -26,29 +60,20 @@
 
 		const validateFields = () => {
 			let valid = form.checkValidity();
-
-			if (termsCheckbox && !termsCheckbox.checked) {
-				valid = false;
-			}
-
-			if (!hasCartItems()) {
-				valid = false;
-			}
-
+			console.log(valid);
+			if (termsCheckbox && !termsCheckbox.checked) valid = false;
+			console.log(valid);
+			if (getCartItems().length === 0) valid = false;
+			console.log(valid);
 			submitBtn.disabled = !valid;
+			setStatus("");
 		};
 
 		form.addEventListener("input", validateFields);
 		form.addEventListener("change", validateFields);
-
-		if (termsCheckbox) {
-			termsCheckbox.addEventListener("change", validateFields);
-		}
-
+		termsCheckbox.addEventListener("change", validateFields);
 		window.addEventListener("storage", (e) => {
-			if (e.key === STORAGE_KEY) {
-				validateFields();
-			}
+			if (e.key === STORAGE_KEY) validateFields();
 		});
 
 		form.addEventListener("submit", async (e) => {
@@ -61,36 +86,64 @@
 
 			submitBtn.disabled = true;
 
-			const fields = Object.fromEntries(new FormData(form).entries());
+			const { error: submitError } = await elements.submit();
+			if (submitError) {
+				console.error("[elements.submit]", submitError);
+				validateFields();
+				return;
+			}
+
 			const payload = {
-				...fields,
+				...Object.fromEntries(new FormData(form).entries()),
 				items: getCartItems()
 			};
 
 			try {
-				const res = await fetch(form.getAttribute("action") || "/checkout", {
+				const res = await fetch(form.getAttribute("action") || "/intent", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(payload)
 				});
 
-				if (!res.ok) {
-					throw new Error(`HTTP ${res.status}`);
+				const data = await res.json();
+				if (!res.ok || !data?.clientSecret) {
+					throw new Error(data?.error || `HTTP ${res.status}`);
 				}
 
-				const data = await res.json();
-				if (data && data.url) {
-					window.location.href = data.url;
-					return;
+				if (typeof data.amount === "number") {
+					await elements.update({ amount: data.amount });
 				}
-				throw new Error("Respuesta sin URL de Stripe");
+
+				const { error: confirmError } = await stripe.confirmPayment({
+					elements,
+					clientSecret: data.clientSecret,
+					confirmParams: {
+						return_url: `${window.location.origin}/finalizar-compra?success=true`
+					}
+				});
+
+				if (confirmError) {
+					console.error("[confirmPayment]", confirmError);
+					setStatus(confirmError.message || "Error al procesar el pago", "error");
+					validateFields();
+				}
 			} catch (err) {
 				console.error("[checkout]", err);
+				setStatus(err.message || "Error al procesar el pago", "error");
 				validateFields();
 			}
 		});
 
 		validateFields();
+		if (params.get("redirect_status") === "succeeded" && params.get("success") === "true") {
+			form.reset();
+			if (termsCheckbox) termsCheckbox.checked = false;
+			paymentElement.unmount();
+			paymentElement.mount("#payment-element");
+			localStorage.removeItem(STORAGE_KEY);
+			validateFields();
+			setStatus("Pago completado correctamente. Revise la bandeja de entrada de su correo electrónico.", "ok");
+		}
 	};
 
 	if (document.readyState === "loading") {

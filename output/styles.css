@@ -72,16 +72,18 @@ a {
 	transition:			background-color 0.3s, color 0.3s, var(--animacion), scale 0.3s;
 }
 
-body {
+html, body {
 	/*en teoría las fuentes se ven mejor así, ni idea la verdad*/
 	-moz-osx-font-smoothing: 	grayscale;
 	-webkit-font-smoothing: 	antialiased;
 	margin: 					0;
-	overflow-x: 				hidden; 
+	overflow-x: 				clip; 
 	display:					flex;
 	flex-direction:				column;
 	align-items:				center;
 	gap:						24px;
+	max-width:					100%;
+	width:						100%;
 	min-height: 				100dvh; 
 }
 
